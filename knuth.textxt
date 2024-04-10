@@ -1,0 +1,27 @@
+$$
+\vbox{\offinterlineskip
+\def\bit{height 3pt&\omit&&&&&&&&&\cr}
+\def\midbit{height 3pt&\omit&&&\omit&&\omit&&&&\cr}
+\def\ctr#1{\hbox to 4em{\hfil #1\hfil }}
+\halign{
+\vrule #&\vrule height 9pt depth 5pt width 0pt
+\ctr{$#$}&\ctr{$#$}&\ctr{$#$}&\vrule #&\ctr{$#$}&\vrule #
+&\ctr{$#$}&\ctr{$#$}&\ctr{$#$}&\vrule #\tabskip0pt\cr
+\noalign{\hrule}
+\bit
+&\alpha@a&\beta K\?Q&\alpha@b&&\beta@QP&&\alpha@a&\beta K&\alpha@b&\cr
+&\gamma J\?P&\delta Na&\gamma R&&\delta@K\?Q&&\gamma J\?L&\delta Nb&\gamma P&\cr
+&\alpha@c&\beta DS&\alpha@d&&\beta@Y\?\?QT&&\alpha@c&\beta S&\alpha@d&\cr
+&\multispan3\hrulefill&&&&\multispan3\hrulefill\cr
+\midbit
+&\gamma PQ&\delta J\?P&\gamma X\?P&\omit&\delta Na&\omit&\gamma RQ&\delta R&\gamma R&\cr
+\midbit
+&\multispan3\hrulefill&&&&\multispan3\hrulefill\cr
+\bit
+&\alpha@a&\beta KU&\alpha@b&&\beta DP&&\alpha@a&\beta K&\alpha@b&\cr
+&\gamma@JT&\delta Nc&\gamma S&&\delta SD&&\gamma JS
+&\delta Nd&\gamma@T&\cr
+&\alpha@c&\beta@QS&\alpha@d&&\beta DT&&\alpha@c&\beta S&\alpha@d&\cr
+\bit
+\noalign{\hrule}\cr}}
+$$
