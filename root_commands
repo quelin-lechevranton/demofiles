@@ -1,0 +1,39 @@
+# Arborescence ROOT:
+
+$ 	root path/to/file.root
+root > 	new TBrowser
+root >	Events / ns::class_some_module_name / nm::class_some_module_name.obj / a / b / c
+
+# Draw with ROOT:
+
+$ 	root
+root > 	TFile *_file0 = TFile::Open("path/to/file")
+root >	_file0->cd()
+root >	Events->Draw("ns::class_some_module_name.obj.a.b.c","...","","")
+
+# Access in macro C:
+
+gallery::Event ev("path/to/file.root");
+art::InputTag module_tag(some:module:name);
+auto const hello = ev.getValidHandle<vector<ns::class>>(module_tag);
+
+# Repositories
+
+to see the methods and attributs of the class: 
+	https://github.com/LArSoft/lardataobj/tree/develop/lardataobj/NameSpace/class.h
+	https://github.com/NuSoftHEP/nusimdata/blob/develop/nusimdata/NameSpace/class.h
+also see:
+	https://github.com/drbenmorgan/fnal-gallery/blob/develop/gallery/Event.h
+and: ?
+	https://github.com/DUNE/protoduneana/blob/develop/protoduneana
+
+# Examples
+
+Events->Draw("varY:varX>>hXY(??,??,??,??,??,??)","condition","drawing_option")
+Events->Draw("anab::Calorimetrys_pandoraStdcalo__Reco.obj.fdEdx:(anab::Calorimetrys_pandoraStdcalo__Reco.obj.fRange-anab::Calorimetrys_pandoraStdcalo__Reco.obj.fResidualRange)","","colZ")
+Events->Draw("simb::MCParticles_largeant__G4.obj.ftrajectory.ftrajectory.first.fP.fX:simb::MCParticles_largeant__G4.obj.ftrajectory.ftrajectory.first.fP.fY>>hXY(150,-125,25,300,100,400)","simb::MCParticles_largeant__G4.obj.fpdgCode==13","")
+Events->sim::SimEnergyDeposits_largeant_LArG4DetectorServicevolTPCActive_G4Stage1.obj.startPos.fCoordinates.Theta()
+Events->simb::MCTruths_cosmicgenerator__SinglesGen.obj.fPartList.Py()/simb::MCTruths_cosmicgenerator__SinglesGen.obj.fPartList.P()
+
+
+
