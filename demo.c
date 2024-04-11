@@ -71,6 +71,8 @@ goto id1; /*****/  id1: ...;
 const long long unsigned ......
 sizeof(a) //size in the memory of the variable a
 
+static int a; //A variable with static storage duration has a permanent storage location but still has block scope, so it’s not visible to other functions.
+
 /*BOOLEANS******************/
 #define true 1
 #define false 0
@@ -159,4 +161,9 @@ printf( "%d", sum( 5, (int []) { 3,0,3,4,1 }))
 
 int power(int x, int n) { return n==0 ? 1 : x*power(x,n-1);}
 
-  
+int i=0;
+{printf("%d",i); int i=1; printf("%d",i);}
+printf("%d",i);
+for (int i=0; i<2; i++) {printf("%d",i);} 
+printf("%d",i);
+

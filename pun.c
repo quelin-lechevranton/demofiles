@@ -1,13 +1,12 @@
 #include<stdio.h>
 #include<string.h>
-#include <utility>
+//#include <utility>
 
+void print(int i) {printf("%d",i);}
 
 int main() {
-  pair<int, int> p(2,3);
-  pair<int, int> q;
-  pair<int, int> r;
-  q=p;
-  r=(2,3);
+  int i=0;
+  {print(i); int i=3; print(i);}
+  print(i);
   return 0;
 }
