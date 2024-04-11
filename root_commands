@@ -1,3 +1,12 @@
+# ?
+
+TF1 f1("f1","formula",parameters); 
+TF1 *f1=new TF1("f1","formula",parameters);
+
+R__ADD_INCLUDE_PATH("...")
+ReadFileList(n_file,"path/to/file.list")
+
+
 # Arborescence ROOT:
 
 $ 	root path/to/file.root
@@ -29,6 +38,7 @@ and: ?
 
 # Examples
 
+f1.SetParameter(parameter_id,parameter_value);
 
 Events -> GetListOfBranches() -> ls() //print list of branches in the tree Events
 Events->Draw("varY:varX>>hXY(??,??,??,??,??,??)","condition","drawing_option")
