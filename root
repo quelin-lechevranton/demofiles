@@ -31,8 +31,12 @@ to see the methods and attributs of the class:
 	https://github.com/LArSoft/lardataobj/tree/develop/lardataobj/
 	https://github.com/NuSoftHEP/nusimdata/blob/develop/nusimdata/
 also see:
-	https://github.com/LArSoft/larcoreobj/tree/develop/larcoreobj/SimpleTypesAndConstants
 	https://github.com/drbenmorgan/fnal-gallery/blob/develop/gallery
+	https://github.com/LArSoft/larcoreobj/tree/develop/larcoreobj/SimpleTypesAndConstants
+		using Point_t = ROOT::Math::PositionVector3D<ROOT::Math::Cartesian3D<double>,ROOT::Math::GlobalCoordinateSystemTag>;
+			https://root.cern.ch/doc/master/classROOT_1_1Math_1_1PositionVector3D.html
+		using Vector_t = ROOT::Math::DisplacementVector3D<ROOT::Math::Cartesian3D<double>,ROOT::Math::GlobalCoordinateSystemTag>;
+			https://root.cern/doc/v608/classROOT_1_1Math_1_1DisplacementVector3D.html
 and: ?
 	https://github.com/DUNE/protoduneana/blob/develop/protoduneana
 	https://github.com/art-framework-suite/canvas/tree/develop/canvas
