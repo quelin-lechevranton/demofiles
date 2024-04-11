@@ -28,10 +28,11 @@ auto const hello = ev.getValidHandle<vector<ns::class>>(module_tag);
 # Repositories
 
 to see the methods and attributs of the class: 
-	https://github.com/LArSoft/lardataobj/tree/develop/lardataobj/NameSpace/class.h
-	https://github.com/NuSoftHEP/nusimdata/blob/develop/nusimdata/NameSpace/class.h
+	https://github.com/LArSoft/lardataobj/tree/develop/lardataobj/
+	https://github.com/NuSoftHEP/nusimdata/blob/develop/nusimdata/
 also see:
-	https://github.com/drbenmorgan/fnal-gallery/blob/develop/gallery/Event.h
+	https://github.com/LArSoft/larcoreobj/tree/develop/larcoreobj/SimpleTypesAndConstants
+	https://github.com/drbenmorgan/fnal-gallery/blob/develop/gallery
 and: ?
 	https://github.com/DUNE/protoduneana/blob/develop/protoduneana
 	https://github.com/art-framework-suite/canvas/tree/develop/canvas
