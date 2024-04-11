@@ -6,9 +6,6 @@ TF1 *f1=new TF1("f1","formula",parameters);
 R__ADD_INCLUDE_PATH("...")
 ReadFileList(n_file,"path/to/file.list")
 
-art::InputTag #from which librairy ??
-
-
 # Arborescence ROOT:
 
 $ 	root path/to/file.root
@@ -37,6 +34,7 @@ also see:
 	https://github.com/drbenmorgan/fnal-gallery/blob/develop/gallery/Event.h
 and: ?
 	https://github.com/DUNE/protoduneana/blob/develop/protoduneana
+	https://github.com/art-framework-suite/canvas/tree/develop/canvas
 
 # Examples
 
