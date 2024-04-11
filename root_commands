@@ -29,6 +29,8 @@ and: ?
 
 # Examples
 
+
+Events -> GetListOfBranches() -> ls() //print list of branches in the tree Events
 Events->Draw("varY:varX>>hXY(??,??,??,??,??,??)","condition","drawing_option")
 Events->Draw("anab::Calorimetrys_pandoraStdcalo__Reco.obj.fdEdx:(anab::Calorimetrys_pandoraStdcalo__Reco.obj.fRange-anab::Calorimetrys_pandoraStdcalo__Reco.obj.fResidualRange)","","colZ")
 Events->Draw("simb::MCParticles_largeant__G4.obj.ftrajectory.ftrajectory.first.fP.fX:simb::MCParticles_largeant__G4.obj.ftrajectory.ftrajectory.first.fP.fY>>hXY(150,-125,25,300,100,400)","simb::MCParticles_largeant__G4.obj.fpdgCode==13","")
