@@ -23,7 +23,7 @@ root >	Events->Draw("ns::class_some_module_name.obj.a.b.c","...","","")
 
 gallery::Event ev("path/to/file.root");
 art::InputTag module_tag(some:module:name);
-auto const hello = ev.getValidHandle<vector<ns::class>>(module_tag);
+auto const identifier = ev.getValidHandle<vector<ns::class>>(module_tag);
 
 # Repositories
 
