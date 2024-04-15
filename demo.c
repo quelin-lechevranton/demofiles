@@ -73,6 +73,8 @@ sizeof(a) //size in the memory of the variable a
 
 static int a; //A variable with static storage duration has a permanent storage location but still has block scope, so it’s not visible to other functions.
 
+
+
 /*BOOLEANS******************/
 #define true 1
 #define false 0
@@ -110,9 +112,49 @@ int m[2][2]={1,2,3,4};
 
 memcpy(a,b, sizeof(a));
 
+/*POINTERS******************/
+
+int *p; //p is a pointer: it is the address of a variable of type int
+int a; p=&a; //p now points to the address of a
+int b; b=*p; //b as the value stored in b, ie. the value of a
+
+//int *p; *p=1; this is really not a good idea, p is uninitialized and could point to anything
+
+int a;
+void f(const int *p){
+  p=&a; //ok p might not be constant
+  //*p=0; this is wrong: the value p points is a constant
+}
+void g(int *const p){
+  //p=&a; this is wrong
+  *p=0;
+}
+
+int a[10],*p,*q,i;
+p=&a[8]; //p points to the address hosting a[8]
+q=p-3; //q points to the address hosting a[5]
+i=p-q; //i is equal to 3. p and q must point to elements of the same array
+p>q; //is true since p-q>0 is true
+
+int *p=(int []){3,0,3,4,1}; //this is valid and the array is saved in memory even if no identifier has been declared
+
+// arrays identifiers are pointers to the first element
+// a+i and &a[i] are equivalents
+// *(a+i) and a[i] are equivalents
+// the compiler treats a[i] as *(a+i) so i[a], *(i+a), *(a+i) and a[i] are equivalent
+// put a can't be modified. eg. a++ is undefined (it would actually points to the address a[N])
+// int a[1]; allocated memory, while int *a; doesn't
+
+// &a[i][0], &(*(a[i]+0)), &*a[i] and a[i] are equivalents
+
+//variably modified types (pointers to variable-length arrays
+int a[m][n], (*p)[n]=a; //this is the correct way to define a pointer pointing to a row of a
+for (p=a ; p<a+m ; p++) (*p)[i]=0; //this clears the column i of a
+
 /*EXAMPLES******************/
 
 #define PI 3.1415
+#define N 10
 
 
 int i,j;
@@ -124,7 +166,7 @@ i=j++;
 l=++l
 
 
-int i=0,a[10]; while(i<10) a[i++]=0;
+int i=0,a[N]; while(i<N) a[i++]=0;
 
 
 int n;
@@ -161,9 +203,21 @@ printf( "%d", sum( 5, (int []) { 3,0,3,4,1 }))
 
 int power(int x, int n) { return n==0 ? 1 : x*power(x,n-1);}
 
+
 int i=0;
 {printf("%d",i); int i=1; printf("%d",i);}
 printf("%d",i);
 for (int i=0; i<2; i++) {printf("%d",i);} 
 printf("%d",i);
 
+void d(double x, long *p, double *q) {*p=(long) x;*q=x-*p;};
+long i; double f; d(3.14,&i,&f); 
+printf("3.14=%i+%.2f\n",i,f); 
+
+int a[N]={1,2,3,4},*p,sum=0,prod=1;
+p = &a[0];
+while (p < &a[N])
+  sum += *p++;
+printf("%i",sum);
+for(p=a;p<a+N;p++)
+  prod *= *p;
