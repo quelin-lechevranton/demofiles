@@ -38,6 +38,9 @@ char //sigle quotes '': in ASCII from 0 to 127
 %.2g //auto decimal or exponetial form
 
 %c //character (can be used on an int to print ASCII character)
+%.3s //3 first character of a string (char array)
+%-10.5s //left-aligned first 5 character in a line of 10
+%4s //in scanf, store only the first 4 characters of the string input
 
 /*LOGICAL OPERATORS**********/
 !
@@ -66,6 +69,16 @@ while (1) ...; for (;;) ...; //infinit loops
 break; //break the loop
 continue; //break the interation
 goto id1; /*****/  id1: ...;
+
+/*INPUT/OUTPUT**************/
+//printf :
+//puts : one argument: a string
+//putchar : one argument: a char
+
+//scanf : start at first non-white space character, stops at a white space, tab, or new line
+//gets : stops at new line
+//getchar()
+
 
 /*TYPES*********************/
 const long long unsigned ......
@@ -101,6 +114,7 @@ int a[] = {1,2,3,4,5}; //initializer: automatically assign length
 int a[5] = {1,2}; //unspecified values put to 0
 int a[5] = {[1] = 2, [4]=5} //designated initializer: specify index of initialized values
 int a[] = {1,2,[4]=5} //assigned length=5
+int a[5]; a={1,2,3,4,5}; //this is wrong, initializer are only for initialization
 
 int length(a) { return (int) sizeof(a) / sizeof(a[0]); }
 
@@ -150,6 +164,25 @@ int *p=(int []){3,0,3,4,1}; //this is valid and the array is saved in memory eve
 //variably modified types (pointers to variable-length arrays
 int a[m][n], (*p)[n]=a; //this is the correct way to define a pointer pointing to a row of a
 for (p=a ; p<a+m ; p++) (*p)[i]=0; //this clears the column i of a
+
+/*STRINGS*******************/
+
+//strings literal: "abc"
+//strings are pointers to char
+//"abc"[3] is the null character \0
+
+char string[20] = "hello";
+char string[20] = { 'h','e','l','l','o','\0' }; //both declaration are equivalents
+//uninitialized array elements are put to '\0' (as they are put to 0 in case of an int array
+char string[] = "hello"; //string is initialized with length 6
+char string[6]; string="hello"; //this is wrong initializers are only for initialization
+char string[] = "\x7c" "ber"; //compiled as one string without white space
+
+//cf. standard library: <string.h>
+
+char str_list[][10] ={"I'm","batman"}; //list of strings up to 9 characters: end of strings filled with '\0': lost space
+char *str_list[] = {"I'm","batman"}; //better
+
 
 /*EXAMPLES******************/
 
@@ -221,3 +254,21 @@ while (p < &a[N])
 printf("%i",sum);
 for(p=a;p<a+N;p++)
   prod *= *p;
+
+char int_to_hex(int i) return "0123456789ABCDEF"[i];
+
+int count_spaces(const char s[]) {
+  int count = 0, i;
+  for (i = 0; s[i] != '\0'; i++) if (s[i] == ' ') count++;
+  return count;
+}
+
+int count_spaces(const char *s) {
+  int count=0
+  for (; *s!='\0' ;s++) if (*s == ' ') count++;
+  return count;
+} //*s!='\0', *s!=0, *s are the same
+
+int len(const char *s) {const char *p=s; while(*s++); return (s-1)-p;}
+
+void cat(char *s, const char *t) {char *p=s; while (*p)p++; while (*p++=*t++);}
