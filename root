@@ -26,7 +26,7 @@ gallery::Event ev("path/to/file.root");
 art::InputTag module_tag(some:module:name);
 auto const obj_list = ev.getValidHandle<vector<ns::class>>(module_tag);
 ns::class& obj = obj_list->at(index);
-obj.a() #only access to the methods (leaves with a red bang ! on it, leaves with names like ...())
+obj.a() #only access to the methods (leaves with a red bang ! on it, leaves with names like ...()), thoses are only seen in TBrowser if larsoft was previously set up
 #how to access the other leaves ???
 
 
