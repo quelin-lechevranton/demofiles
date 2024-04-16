@@ -1,3 +1,11 @@
+/*
+ * C Programming: A Modern Approach
+ * K. N. King
+ * Second Edition
+ */
+
+
+
 <...> //headers
 
 /*DIRECTIVES****************/
@@ -22,7 +30,7 @@ char //sigle quotes '': in ASCII from 0 to 127
 
 \\ //backslash
 \? //question mark
-\' //single quote
+\' //single quote'
 \" //double quote"
 %% //percentage
 

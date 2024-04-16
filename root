@@ -24,7 +24,11 @@ root >	Events->Draw("ns::class_some_module_name.obj.a.b.c","...","","")
 
 gallery::Event ev("path/to/file.root");
 art::InputTag module_tag(some:module:name);
-auto const identifier = ev.getValidHandle<vector<ns::class>>(module_tag);
+auto const obj_list = ev.getValidHandle<vector<ns::class>>(module_tag);
+ns::class& obj = obj_list->at(index);
+obj.a() #only access to the methods (leaves with a red bang ! on it, leaves with names like ...())
+#how to access the other leaves ???
+
 
 # Repositories
 
