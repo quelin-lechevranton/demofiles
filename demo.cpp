@@ -6,7 +6,67 @@
 
 #include<stdio.h>
 
-/*NAMSPACES*****************/
+/*TYPE*DECLARATION********4*/
+
+//built-in types
+    //arithmetic types
+        //floating-point: double
+        //integral types
+            //boolean
+            //character
+            //integer
+    //pointers
+    //arrays
+    //references
+//user-defined
+    //enumeration types
+    //data structures and classes
+
+/*characters: 
+    char: almost universally on 8 bits (256). 
+    character set is a variation of ISO-646 (eg. ASCII) but not standardized.
+    signed char: -127 to 127
+    unsigned char: 0 255
+    wchar_t: should hold every possible character (implementation dependant)
+*/
+
+/*zero:
+    char: NUL (null-character \0)
+    int: 0
+    float: 0.
+    bool: false
+    pointer: NULL
+*/
+
+//read until: 4.3.1 excl.
+
+/*POINTER*ARRAY*STRUCT.***5*/
+
+int* p;         //pointer
+int a[];        //array: array bound must be a const type (cf. vectors)
+auto s ="abc";  //string literal: const char[4] (can be converted to char*)
+auto s =L"abc"; //const wchar_t[4]
+
+int i=1;
+int& r=i;       //reference: now r==i and &r==&i, the value has not been copied
+void incr(int& x) {x++;}    //side effect function: incr(i);
+void incp(int* p) {++*p;}   //more clear that it as side effects: incr(&i);
+
+//arrays: aggregate of elements of same type
+//structures: aggregate of elements of arbitrary types
+struct date_struct { unsigned int day; char* month; signed int year;};
+date_struct birthday,christmas={25,"decembre",2023}; 
+void f1() {
+    birthday.day=2; birthday.month="avril"; birthday.year=2001;
+}
+date_struct* pxmas=&christmas;
+void f2() {
+    pxmas->year=2024; (*pxmas).year=2024; //those are equivalent
+}
+
+struct S; S* pS; S fS(); //but S a; pS->..; fs(); are wrong since the size allocation is unknown yet
+
+/*NAMSPACE******************/
 
 namespace square {
     using m2 = double;
@@ -25,7 +85,7 @@ double area_and_perimeter (double c) {
     return area(c) + perimeter(c);
 }
 
-/*CLASSES****************10*/
+/*CLASSE*****************10*/
 
 class date {
     int y,m,d; //those are private member accessed via: today.y, only inside the class body
@@ -48,8 +108,10 @@ date::date (int Y, int M, int D) {
     m = M ? M : today.m;
     d = D ? D : today.d;
 }
-date birthday = date (2001,4,2); //decalartion of the object birthday from the class date
-date birthday(2001,4,2); //those are equivalents
+date bday = date (2001,4,2); //decalartion of the object birthday from the class date
+date bday(2001,4,2); //those are equivalents
 date hui; 
 date hoy=hui; //by default this means the copy of each members 
-int by = birthday.year();
+int by = bday.year();
+
+//read until: 10.2.7.2 excl.
