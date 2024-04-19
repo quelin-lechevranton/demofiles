@@ -4,14 +4,28 @@
  * Second Edition
  */
 
-
+//to continue directives, declarations, computation lines...? on multiple lines use \
+//at the end of the line then go to the next line
 
 <...> //headers
 
-/*DIRECTIVES****************/
-#include 
-#define ...1 ...2 //macros: when ...1 is typed the compiler will understand ...2
+/*PREPROCESSING DIRECTIVES***/
+//the preprocessor remove all comments and sometimes even unnecessary white spaces
+//directives can appear anywhere in a program
 
+#include<header.h> //the preprocessor will copy the content of the file 
+
+#define MACRO some_thing //macros: when MACRO is typed the preprocessor will type some_thing istead
+#undef MACRO //removes the macro
+#define MIN(a,b) ((a)<(b)?(a):(b)) //macro functions, 
+//macro function may be faster then regular functions as they are not called during execution
+//macro can have any type, MIN can be used on int, long, float ...
+#define PRINT(i) printf(#i "=%i\n",i) //stringization
+//PRINT(i) --> printf("i" "=%i/n",i)
+#define TOKEN(i) a##i //take-pasting
+//TOKEN(1) --> a1
+//predefined macros: __LINE__ __FILE__ __DATE__ __TIME__ __STDC__
+//
 
 /*LIST OF TYPES*************/
 int, short, long, long long, unsigned int

@@ -2,12 +2,9 @@
 #include<string.h>
 //#include <utility>
 
-
-/* Checks planet names */
-#include <stdio.h>
-#include <string.h>
 #define NUM_PLANETS 9
 int main(int argc, char *argv[])
+
 {
 char *planets[] = {"Mercury", "Venus", "Earth",
 "Mars", "Jupiter", "Saturn",
@@ -22,5 +19,6 @@ break;
 if (j == NUM_PLANETS)
 printf("%s is not a planet\n", argv[i]);
 }
+//hello
 return 0;
 }
