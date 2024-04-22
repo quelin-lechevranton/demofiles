@@ -1,0 +1,16 @@
+// and # start a line comment, exept if # is follwed by include
+#include "file.fcl"
+
+table: { a: 1 b: 2 c: 3 }
+x: table.a //x has value 1 
+
+sequence: [1, 2, 3]
+x: sequence[0] //x has value 1
+
+table.d: 4 //is legal
+sequence[3]: 4 //is legal
+
+w: x //w has value x (alpha start string, equivalent to "x" or 'x')
+y: @local::x //y has value 1
+z: @db::x // ???????????????
+v: @table::?  //????????????

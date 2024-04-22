@@ -6,6 +6,14 @@
 
 #include<stdio.h>
 
+/*A*TOUR*OF*C++***********2*/
+switch(answer) {
+case 'y': return true;
+case 'n': return false;
+default: return error;
+}
+
+
 /*TYPE*DECLARATION********4*/
 
 //built-in types

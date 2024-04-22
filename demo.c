@@ -14,6 +14,9 @@
 //directives can appear anywhere in a program
 
 #include<header.h> //the preprocessor will copy the content of the file 
+//<c_standard_header.h> in path: /usr/include
+//"my_header.h" in current directory or /usr/include
+//cf. 15.3 and on
 
 #define MACRO some_thing //macros: when MACRO is typed the preprocessor will type some_thing istead
 #undef MACRO //removes the macro
@@ -21,16 +24,39 @@
 //macro function may be faster then regular functions as they are not called during execution
 //macro can have any type, MIN can be used on int, long, float ...
 #define PRINT(i) printf(#i "=%i\n",i) //stringization
-//PRINT(i) --> printf("i" "=%i/n",i)
+//PRINT(i) --> printf("i" "=%i/n",i) // " -> \" and \ -> \\ 
 #define TOKEN(i) a##i //take-pasting
 //TOKEN(1) --> a1
 //predefined macros: __LINE__ __FILE__ __DATE__ __TIME__ __STDC__
-//
+#define MACRO(a,...) some_thing(__VA_ARGS__) //variable number of arguments
+
+#define DEBUG 0
+#if DEBUG
+/*
+ * some
+ * code
+ */
+#endif //the code won't be compiled
+defined(DEBUG) //returns 1 if DEBUG is defined, 0 otherwise
+#ifdef DEBUG //same as #if defined(DEBUG)
+#ifndef DEBUG //same as #if !defined(DEBUG)
+#if ..1
+//blabla
+#elif ..2 //any number of #elif
+//blabla
+#else //at most one #else
+//blabla
+#endif //those can be used to change compilation depending on OS/compiler version
+
+// #error, #line, #pragma, _Pragma
+
+/*IDENTIFIERS***************/
+__func__ //return the name (char*) of the current function
 
 /*LIST OF TYPES*************/
 int, short, long, long long, unsigned int
 float, double, long double
-char //sigle quotes '': in ASCII from 0 to 127
+char //single quotes '': in ASCII from 0 to 127
 
 
 /*ESCAPE SEQUENCES**********/
@@ -104,9 +130,14 @@ goto id1; /*****/  id1: ...;
 
 /*TYPES*********************/
 const long long unsigned ......
+typedef double meters;
+meters longeur; //stocked as a double, indicate that the value is to be thought as meters
+
 sizeof(a) //size in the memory of the variable a
 
 static int a; //A variable with static storage duration has a permanent storage location but still has block scope, so it’s not visible to other functions.
+extern int a; //declare the variable without defining it (ie. allocating space) because it is defined elsewhere (usally a header)
+
 
 
 
@@ -114,6 +145,7 @@ static int a; //A variable with static storage duration has a permanent storage 
 #define true 1
 #define false 0
 typedef int bool;
+//booleans are int by default
 
 #include<stdbool.h>
 
