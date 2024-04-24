@@ -49,6 +49,14 @@ defined(DEBUG) //returns 1 if DEBUG is defined, 0 otherwise
 #endif //those can be used to change compilation depending on OS/compiler version
 
 // #error, #line, #pragma, _Pragma
+// protecting against multiple includes or definition:
+#ifndef BOOLEAN_H
+#define BOOLEAN_H
+#include<boolean.h>
+#define SUPER_BOOL 2
+typedef int boool;
+#endif
+//this in multiple files ensure it will be compile only once if all the files are included
 
 /*IDENTIFIERS***************/
 __func__ //return the name (char*) of the current function
@@ -180,6 +188,8 @@ int m[2][2]={1,2,3,4};
 
 memcpy(a,b, sizeof(a));
 
+//array can be return values of functions
+
 /*POINTERS******************/
 
 int *p; //p is a pointer: it is the address of a variable of type int
@@ -237,6 +247,30 @@ char string[] = "\x7c" "ber"; //compiled as one string without white space
 char str_list[][10] ={"I'm","batman"}; //list of strings up to 9 characters: end of strings filled with '\0': lost space
 char *str_list[] = {"I'm","batman"}; //better
 
+/*STRUCTURES****************/
+struct {
+  int numero;
+  char name[10];
+} coureur1={24},  //name is "\0"
+  coureur2={46,"Ange"},
+  coureur3={ .name="Pierre" }; //this is a designator
+coureur1.numero++; //structure members are lvalues
+
+struct Coureur {
+  int numero;
+  char name[10];
+}; //structure tag
+struct Coureur coureur4; //struct can't be omitted
+
+typedef struct {
+  int numero;
+  char name[10];
+} Coureur_t; //typedef
+Coureur_t coureur5;
+
+void f(struct Coureur c) {printf("%i", c.numero);}
+f( (struct Coureur) {25 , "Dimitri"} ); //Compound Literal
+coureur5 = (struct Coureur) {.numero=34 }; //can't use initializer here
 
 /*EXAMPLES******************/
 

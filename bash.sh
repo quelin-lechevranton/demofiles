@@ -14,6 +14,9 @@ ctrl+shift+u #type unicode character
 ? #stores the status code of last terminated program (0 for succes, i>=1 for error)
 SHELL
 PROMPT_DIRTRIM
+CPLUS_INCLUDE_PATH
+USER
+HOSTNAME
 
 --------- BASHRC ---------- 
 #for colors cf. ANSI escape: eg. \e[1;31;24mA\e[0m
@@ -34,12 +37,14 @@ alias {gstat,gs}='git status'
 ... | grep <keyword> #print only the lines where the keyword appears
 ... | less #navigate through stdout with space/b/q 
 ... | tail #last 10 lines
+find -name "full_name_of_file.extension"
 
 ????????????????????????????????
 df -h
 du -h -d 1 .
 ln -s
 less / more ?
+export #add something to the tail of the variable? export PATH=something ???
 
 ls -Rlh <folder>
 history
