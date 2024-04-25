@@ -84,22 +84,20 @@ outputs: {
 }
 
 physics: {
-    producers: {
+    producers: {            #uses the class art/Framework/Core/EDProducer.h
         generator: {
             module_type:    "EventGenerator"
             particles:      @local::parameters.particles
         }
     }
-    analyzers:      #or producters or filters
-    {
-        event_printer:   #this is the 'service' or 'module instance'
-        {
+    analyzers: {            #uses the class art/Framework/Core/EDAnalyzer.h
+        event_printer: {    #this is the 'service' or 'module instance'
             module_type:    "PrintEventNumber"
             LogLevel:       2
             particles:      @local::parameters.particles
         }
     }
-    filters: {
+    filters: {              #uses the class art/Framework/Core/EDFilter.h
 
     }
 
