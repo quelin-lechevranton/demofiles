@@ -1,4 +1,4 @@
-# art, an *event-processing framework*
+# art:  *FNAL event processing framework*
 
 ## InputTag
 
@@ -191,7 +191,6 @@ return static_cast<bool>(result);
 
 ```C++
 void myModule::analyzer(const art::Event& ev) {
-    // art::InputTag myTag("label:instance");
     string myLabel="label";
     string myInstance="instance";
     art::Handle<vector<myType>> myHandle;
