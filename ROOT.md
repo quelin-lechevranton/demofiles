@@ -10,6 +10,10 @@ R__ADD_INCLUDE_PATH("...")
 ReadFileList(n_file,"path/to/file.list")
 ```
 
+`TFile file("file.root")` vs `TFile* file=TFile::Open("file.root")`
+
+`new TBrowser` vs `TBrowser b`
+
 ## Arborescence ROOT
 
 ```C++
@@ -85,8 +89,6 @@ TBranchElement <- TBranche <- TNamed <-
 
 ## File Navigation
 
-`TFile file("file.root")` vs `TFile* file=TFile::Open("file.root")`
-
 ```C++
 TFile file("file.root");
 TObject* obj = file.Get("path/to/obj");
@@ -123,7 +125,7 @@ TTree* tt= (TTree*) file->Get("tdf/tt"); //Get() returns a TObject*
 
 tt->GetListOfBranches()->ls(); //print in stdout
 
-type_t* var;
+type_t* var=nullptr; //pointers should always be initialized
 tt->SetBranchAddress("b1",&var);
 //TBranch* b1 = tt->GetBranch("b1");
 //b1->SetAddress(&var);
@@ -132,3 +134,7 @@ for (int i=0; i< tt->GetEntries(); i++) {
 }
 
 ```
+
+## Random Notes
+
+`SetMarkerSize(size_t msize)` doesn't affect default marker size `SetMarkerStyle(20)` is needed.

@@ -1,3 +1,16 @@
+# Bash: demofile
+
+| shells | | |
+| ----------- | ----------- | ----------- |
+| sh | The original Bourne shell | Present on every unix system |
+| ksh | Original Korn shell | Richer shell programming environment than sh |
+| csh | Original C-shell | C-like syntax; early versions buggy |
+| tcsh | Enhanced C-shell | User-friendly and less buggy csh implementation |
+| bash | GNU Bourne-again shell | Enhanced and free sh implementation |
+| zsh | Z shell | Enhanced, user-friendly ksh-like shell |
+| fish | ??? | |
+
+```bash
 --------- TERMINAL MOUVEMENT ----------
 #mouvement macros inspired by emacs
 ctrl+a #goes to beginning of the line
@@ -45,27 +58,18 @@ du -h -d 1 .
 ln -s
 less / more ?
 export #add something to the tail of the variable? export PATH=something ???
+$ sh vs. $ source
 
 ls -Rlh <folder>
 history
 
+--------- DNF ---------
 dnf list --installed | grep <package_name>
 rename abc ABC * #replace abc by ABC in all file names in the current directory
 sudo dnf whatprovides <C_header_name>
-
-
-
---------- SHELLS ----------
-sh      The original Bourne shell   Present on every unix system 
-ksh     Original Korn shell         Richer shell programming environment than sh 
-csh     Original C-shell            C-like syntax; early versions buggy 
-tcsh    Enhanced C-shell            User-friendly and less buggy csh implementation 
-bash    GNU Bourne-again shell      Enhanced and free sh implementation 
-zsh     Z shell                     Enhanced, user-friendly ksh-like shell
-fish    ???
 
 --------- SCRIPTS ---------
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
-
+```
