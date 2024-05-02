@@ -53,11 +53,29 @@ InputTag("label")           //it.instance(), it.process(): ""
 
 ## Handles
 
+- `gallery::` "version simplifié des objets art pour des macros"
+- `art::` "à utiliser pour écrire un module LArSoft"
+
 ```C++
-void myModule::analyze(const art::Event& ev)
+void myModule::analyze(const art::Event& ev) {
+    /* my analysis */
+}
 ```
 
-### `Handle` private members [`Handle.h`](https://github.com/art-framework-suite/art/blob/5b500a6a3da02ea31220de988066822aac804ff9/art/Framework/Principal/Handle.h#L97)
+[`Handle.h`](https://github.com/art-framework-suite/art/tree/develop/art/Framework/Principal/Handle.h)
+
+> Handle: Non-owning "smart pointer" for reference to EDProducts and their Provenances.
+>
+> ValidHandle: A Handle that can not be invalid, and thus does not check for validity upon dereferencing.
+>
+> Handles can have:
+>
+> - Product and Provenance pointers both null;
+> - Both pointers valid
+>
+> ValidHandles must have Product and Provenance pointers valid.
+
+### `Handle` private members [`Handle.h`](https://github.com/art-framework-suite/art/tree/develop/art/Framework/Principal/Handle.h#L97)
 
 ```C++
 template <typename T>
@@ -74,7 +92,7 @@ private:
 };
 ```
 
-### `ValidHandle` private members [``Handle.h``](https://github.com/art-framework-suite/art/blob/5b500a6a3da02ea31220de988066822aac804ff9/art/Framework/Principal/Handle.h#L287)
+### `ValidHandle` private members [``Handle.h``](https://github.com/art-framework-suite/art/tree/develop/art/Framework/Principal/Handle.h#L287)
 
 ```C++
 class art::ValidHandle {
@@ -89,7 +107,7 @@ private:
 };
 ```
 
-### `ev.getValidHandle` herited [``ProductRetriever.h``](https://github.com/art-framework-suite/art/blob/5b500a6a3da02ea31220de988066822aac804ff9/art/Framework/Principal/ProductRetriever.h#L266)
+### `ev.getValidHandle` herited [``ProductRetriever.h``](https://github.com/art-framework-suite/art/tree/develop/art/Framework/Principal/ProductRetriever.h#L266)
 
 ```C++
 template <typename PROD>
@@ -101,7 +119,7 @@ ProductRetriever::getValidHandle(InputTag const& tag) const
 }
 ```
 
-### `ev.getHandle` herited [``ProductRetriever.h``](https://github.com/art-framework-suite/art/blob/5b500a6a3da02ea31220de988066822aac804ff9/art/Framework/Principal/ProductRetriever.h#L250)
+### `ev.getHandle` herited [``ProductRetriever.h``](https://github.com/art-framework-suite/art/tree/develop/art/Framework/Principal/ProductRetriever.h#L250)
 
 ```C++
 template <typename PROD>
@@ -113,7 +131,7 @@ return Handle<PROD>{qr};
 }
 ```
 
-#### `getByLabel_` herited [``ProductRetriever.h``](https://github.com/art-framework-suite/art/blob/5b500a6a3da02ea31220de988066822aac804ff9/art/Framework/Principal/ProductRetriever.cc#L201)
+#### `getByLabel_` herited [``ProductRetriever.h``](https://github.com/art-framework-suite/art/tree/develop/art/Framework/Principal/ProductRetriever.cc#L201)
 
 ```C++
 GroupQueryResult
@@ -162,7 +180,7 @@ art::Handle<T>::Handle(GroupQueryResult const& gqr)
 }
 ```
 
-### `ev.getByLabel` herited [`ProductRetriever.h](https://github.com/art-framework-suite/art/blob/5b500a6a3da02ea31220de988066822aac804ff9/art/Framework/Principal/ProductRetriever.h#L442)
+### `ev.getByLabel` herited [`ProductRetriever.h`](https://github.com/art-framework-suite/art/tree/develop/art/Framework/Principal/ProductRetriever.h#L442)
 
 ```C++
 template <typename PROD>
@@ -211,5 +229,51 @@ void myModule::analyzer(const art::Event& ev) {
         myType myObj = myValidHandle->at(i);
         /* analysis */
     }
+}
+```
+
+## `art::FindManyP` [`???.h`](https://github.com/art-framework-suite/canvas/tree/develop/canvas/Persistency/Common)
+
+```C++
+art::FindManyP<myType> myAssoc(???,ev,myLabel);
+```
+
+[`Ptr.h`](https://github.com/art-framework-suite/canvas/blob/develop/canvas/Persistency/Common/Ptr.h)
+
+> a Ptr is a persistent smart pointer to an item in a collection
+
+### `GetAssocProductVector<myType>` in [`DUNEAnaUtilsBase.h`](https://github.com/DUNE/dunereco/tree/develop/dunereco/AnaUtils/DUNEAnaUtilsBase.h#L54)
+
+```C++
+template <typename T, typename U> std::vector<art::Ptr<T>> DUNEAnaUtilsBase::GetAssocProductVector(const art::Ptr<U> &pProd, const art::Event &evt, const std::string &label, const std::string &assocLabel)
+{
+    auto products = evt.getHandle<std::vector<U>>(label);
+    bool success = products.isValid();
+
+    if (!success)
+    {
+        mf::LogError("DUNEAna") << " Failed to find product with label " << label << " ... returning empty vector" << std::endl;
+        return std::vector<art::Ptr<T>>();
+    }
+
+    const art::FindManyP<T> findParticleAssocs(products,evt,assocLabel);
+
+    return findParticleAssocs.at(pProd.key());
+}
+```
+
+### `GetTrack` in [`DUNEAnaPFParticleUtils.cxx`](https://github.com/DUNE/dunereco/tree/develop/dunereco/AnaUtils/DUNEAnaPFParticleUtils.cxx#L115)
+
+```C++
+art::Ptr<recob::Track> DUNEAnaPFParticleUtils::GetTrack(
+    const art::Ptr<recob::PFParticle> &pParticle, 
+    const art::Event &evt, const std::string &particleLabel, 
+    const std::string &trackLabel
+) {
+    return DUNEAnaPFParticleUtils::GetAssocProduct<recob::Track>(
+        pParticle,
+        evt,
+        particleLabel,trackLabel
+    );
 }
 ```

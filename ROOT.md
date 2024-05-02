@@ -98,7 +98,9 @@ TTree* tree = (TTree*) file.Get("path/to/obj");
 
 ```C++
 $ root file.root
-root[] .ls //alternatively: root[] file->ls()
+root[] _file0->cd()
+(bool) true
+root[] .ls //alternatively: root[] _file0->ls()
 TFile**
  TFile*
   KEY: TDirectoryFile tdf;1 tdf (tdf) folder
@@ -134,6 +136,18 @@ for (int i=0; i< tt->GetEntries(); i++) {
 }
 
 ```
+
+## `TColor`
+
+```C++
+typedef short Color_t;
+enum { kWhite=0, kBlack=1, kRed=632, kGreen=416 } //and so on
+// 2 also gives red
+```
+
+[RtypesCore.h](https://root.cern.ch/doc/master/RtypesCore_8h_source.html#l00092)
+[Rtypes.h](https://root.cern.ch/doc/master/Rtypes_8h_source.html#l00065)
+[TColor.h](https://root.cern.ch/doc/master/TColor_8h_source.html)
 
 ## Random Notes
 
