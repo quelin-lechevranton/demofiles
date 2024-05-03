@@ -1,6 +1,8 @@
 # C++
 
-*C Programming: A Modern Approach* by K. N. King. 2nd ed.
+> *C Programming: A Modern Approach* 
+> by K. N. King, 
+> 2nd ed.
 
 
 ## Preprocessing et directives
@@ -11,13 +13,13 @@ The preprocessor remove all comments and sometimes even unnecessary white spaces
 
 The preprocessor will copy the content of the file. C standard headers (in `/usr/include`)
 
-```C++
+```C
 #include <c_standard_header.h>
 ```
 
 personnal headers (in current directory or `/usr/include`)
 
-```C++
+```C
 #include "my_header.h"
 ```
 
@@ -25,32 +27,32 @@ personnal headers (in current directory or `/usr/include`)
 
 ### Macros
 
-```C++
+```C
 #define MACRO some_thing
 ```
 
 When `MACRO` is typed the preprocessor will type `some_thing` instead. To remove the macro:
 
-```C++
+```C
 #undef MACRO
 ```
 
 Macro functions can also be defined. Macro functions may be faster then regular functions as they are not called during execution. Macro can have any type, MIN can be used on ``int``, ``long``, ``float`` ...
 
-```C++
+```C
 #define MIN(a,b) ((a)<(b)?(a):(b))
 ```
 
 stringization `#a\bc -> "a\\bc"` and take-pasting `a##i -> a1` (for `i=1`):
 
-```C++
+```C
 #define PRINT(i) printf(#i "=%i\n",i)
 #define TOKEN(i) a##i
 ```
 
 Predefined macros:
 
-```C++
+```C
 __LINE__
 __FILE__
 __DATE__
@@ -60,11 +62,11 @@ __STDC__
 
 Variable number of arguments
 
-```C++
+```C
 #define MACRO(a,...) some_thing(__VA_ARGS__)
 ```
 
-```C++
+```C
 #define DEBUG 0
 #if DEBUG
 /*
@@ -74,13 +76,13 @@ Variable number of arguments
 #endif
 ```
 
-```C++
+```C
 defined(DEBUG) //returns 1 if DEBUG is defined, 0 otherwise
 #ifdef DEBUG   //same as #if defined(DEBUG)
 #ifndef DEBUG  //same as #if !defined(DEBUG)
 ```
 
-```C++
+```C
 #if ..1
 //blabla
 #elif ..2 //any number of #elif
@@ -90,13 +92,13 @@ defined(DEBUG) //returns 1 if DEBUG is defined, 0 otherwise
 #endif
 ```
 
-```C++
+```C
 #error, #line, #pragma, _Pragma
 ```
 
 Protecting against multiple includes or definition, this in multiple files ensure it will be compile only once if all the files are included
 
-```C++
+```C
 #ifndef BOOLEAN_H
 #define BOOLEAN_H
 #include<boolean.h>
@@ -179,7 +181,7 @@ goto id1; /*****/  id1: ...;
 //gets : stops at new line
 //getchar()
 
-
+```C
 /*TYPES*********************/
 const long long unsigned ......
 typedef double meters;
@@ -189,10 +191,9 @@ sizeof(a) //size in the memory of the variable a
 
 static int a; //A variable with static storage duration has a permanent storage location but still has block scope, so it’s not visible to other functions.
 extern int a; //declare the variable without defining it (ie. allocating space) because it is defined elsewhere (usally a header)
+```
 
-
-
-
+```C
 /*BOOLEANS******************/
 #define true 1
 #define false 0
@@ -290,8 +291,15 @@ char string[] = "\x7c" "ber"; //compiled as one string without white space
 
 char str_list[][10] ={"I'm","batman"}; //list of strings up to 9 characters: end of strings filled with '\0': lost space
 char *str_list[] = {"I'm","batman"}; //better
+```
 
-/*STRUCTURES****************/
+## 16 Structures, Unions and Enumerations
+
+### 16.1-3 Structures
+
+```C
+//arrays are collection of one type
+//structures are collection of different types
 struct {
   int numero;
   char name[10];
@@ -315,9 +323,45 @@ Coureur_t coureur5;
 void f(struct Coureur c) {printf("%i", c.numero);}
 f( (struct Coureur) {25 , "Dimitri"} ); //Compound Literal
 coureur5 = (struct Coureur) {.numero=34 }; //can't use initializer here
+```
 
-/*EXAMPLES******************/
+### 16.4 Unions
 
+```C
+//unions store members in the same address
+//u is either an int or a double
+union {
+  int i;
+  double d;
+} u = {0}; //only one value has to be initialized 
+u.d = 10.; //u.i becomes meaningless
+```
+
+> __Using Union to save space__
+
+### 16.5 Enumerations
+
+```C
+enum suit {club, diamond, heart, spade};
+//by default it will be treated as an int, with club=0,...,spade=3
+enum suit s1,s2=diamond;
+s2++; //now s2 is heart
+```
+
+```C
+typedef enum {True, False} Bool;
+```
+
+```C
+typedef enum {white, black, red=3, green=6, blue=9} color;
+//this imposes the compiler to assign specific int values to the enum constants
+```
+
+> __Using Enumerations to Declare “Tag Fields”__
+
+## Examples
+
+```C
 #define PI 3.1415
 #define N 10
 

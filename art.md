@@ -97,14 +97,23 @@ private:
 ```C++
 class art::ValidHandle {
 public:
-    //(...)
+    //this is a modified version for clarity
     bool isValid() {return true;}
     bool failedToGet() {return false;}
+
 private:
     T const* prod_;                         //vh.product()
     EDProductGetter const* productGetter_;  //vh.productGetter()
     Provenance prov_;                       //*vh.provenance()
 };
+```
+
+```C++
+namespace art {
+class Event final : private ProductRetriever {
+    /*...*/
+};
+}
 ```
 
 ### `ev.getValidHandle` herited [``ProductRetriever.h``](https://github.com/art-framework-suite/art/tree/develop/art/Framework/Principal/ProductRetriever.h#L266)
@@ -205,7 +214,9 @@ return static_cast<bool>(result);
 }
 ```
 
-### Example
+### Examples
+
+#### in a module
 
 ```C++
 void myModule::analyzer(const art::Event& ev) {
@@ -225,12 +236,29 @@ void myModule::analyzer(const art::Event& ev) {
 void myModule::analyzer(const art::Event& ev) {
     art::InputTag myTag("label:instance");
     art::ValidHandle<vector<myType>> myValidHandle=ev.getValidHandle(myTag);
-    for (size_t i=0; i<myValidHandle->size(); i++) {
-        myType myObj = myValidHandle->at(i);
+    for (size_t i=0; i<myValidHandle.product()->size(); i++) {
+        myType myObj = myValidHandle.product()->at(i)
+        //myType myObj = myValidHandle->at(i)
+        //myType myObj = (*myValidHandle)[i]
+        //myType myObj = myValidHandle()->at(i) (not in gallery::)
+        
         /* analysis */
     }
 }
 ```
+
+#### in a macro
+
+```C++
+gallery::Event ev({"file.root"});
+art::InputTag myTag("label:instance");
+gallery::ValidHandle<vector<myType>> myValidHandle=ev.getValidHandle(myTag);
+for (size_t i=0; i<myValidHandle->size(); i++) {
+    myType myObj = myValidHandle->at(i);
+
+    /* analysis */
+}
+
 
 ## `art::FindManyP` [`???.h`](https://github.com/art-framework-suite/canvas/tree/develop/canvas/Persistency/Common)
 
@@ -275,5 +303,33 @@ art::Ptr<recob::Track> DUNEAnaPFParticleUtils::GetTrack(
         evt,
         particleLabel,trackLabel
     );
+}
+```
+
+### Examples (without namespaces)
+
+```C++
+const vector<Ptr<PFParticle>> pfpPtrVec = GetPFParticles(ev,pfp_label);
+FindManyP<Cluster> cluPfpAssoc(pfpP_vec,ev,clu_label);
+
+for (const Ptr<PFParticle>& pfpPtr : pfpPtrVec) {
+
+    vector<Ptr<Cluster>> cluPtrVec = cluPfpAssoc.at(pfpPtr.key());
+
+    if (!cluPtrVec.empty()) {
+
+        for (const Ptr<Cluster>>& cluPtr : cluPtr) {
+            /*...*/
+        }
+    }
+
+    if (IsTrack(pfpPtr,ev,pfp_label,track_label)) {
+
+        Ptr<Track> trackPtr = GetTrack(pfpPtr,ev,pfp_label,track_label)
+
+        vector<Ptr<Hits>> hitsPtrVec = GetHits(trackPtr,ev,track_label)
+
+    }
+    
 }
 ```
