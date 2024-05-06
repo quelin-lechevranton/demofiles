@@ -1,5 +1,7 @@
 # art:  *FNAL event processing framework*
 
+`echo $CANVAS_DIR`
+
 ## InputTag
 
 ### private members

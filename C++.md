@@ -160,10 +160,10 @@ public:
 private:
     int size;
     C* ptr;
-}
+};
 struct JapChar {
     /*...*/
-}
+};
 ```
 
 ```C++
@@ -173,12 +173,10 @@ String<JapChar> Japanese_str;
 ```
 
 ```C++
-int main() // count the occurrences of each word on input
-{
-map<String<char>,int> m;
-for (String<char> buf; cin>>buf;)
-++m[buf];
-// ... write out result ...
+int main() { // count the occurrences of each word on input
+    map<String<char>,int> m;
+    for (String<char> buf; cin>>buf;)
+    ++m[buf]; // ... write out result ...
 }
 ```
 

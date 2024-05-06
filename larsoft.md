@@ -24,9 +24,51 @@
 | `anab::Calorimetry` | calorimetric measurement for each plane and each `Track` |
 | `recob::Shower` | shower reconstruction on hits from a shower-like `PFParticle` |
 
-### Clusters [`RecoBase/Cluster.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/Cluster.h)
+## User-defined Types
 
-### PFParticles [`RecoBase/PFParticle.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/PFParticle.h)
+| | |
+| - | - |
+| `Point_t` | [`PositionVector3D`](https://root.cern.ch/doc/master/classROOT_1_1Math_1_1PositionVector3D.html) |
+| `Vector_t` | [`DisplacementVector3D`](https://root.cern.ch/doc/master/classROOT_1_1Math_1_1DisplacementVector3D.html) |
+
+## Tracks
+
+### Trajectories [`RecoBase/Trajectory`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/Trajectory.h)
+
+| members | description |
+| - | - |
+| __private__ | |
+| `fPositions` | `vector<Point_t>` position at each point of the trajectory |
+| `fMomenta` | `vector<Vector_t>` momentum at each point of the trajectory |
+| __public__ | |
+| `PositionAtPoint(i)` | `fPositions[i]` |
+| `MomentumVectorAtPoint(i)` | `fMomenta[i]` |
+| `MomentumAtPoint(i)` | `fMomenta[i].R()`|
+| `DirectionAtPoint(i)` | `fMomenta[i]/fMomenta[i].R()` |
+| | |
+| `Length()` | sum of the distances between adjacent points |
+| `Start()` | position at the first valid point |
+| `End()` | position at the last valid point |
+
+### Track Trajectories [`RecoBase/TrackTrajectory.h)`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/TrackTrajectory.h)
+
+### Tracks [`RecoBase/Track.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/Track.h)
+
+| members | description |
+| - | - |
+| __protected__ | |
+| `fTraj` | `TrackTrajectory` |
+| `...` | |
+| __public__ | |
+| `Theta(i)` | angle of the momentum vector, by default at the first valid point |
+| `Phi(i)` | same |
+| `ZenithAngle(i)` | same |
+| `AzimuthAngle(i)` | same |
+| `...` | |
+
+## Clusters [`RecoBase/Cluster.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/Cluster.h)
+
+## PFParticles [`RecoBase/PFParticle.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/PFParticle.h)
 
 ## [`dunereco/AnaUtils`](https://github.com/DUNE/dunereco/blob/develop/dunereco/AnaUtils)
 

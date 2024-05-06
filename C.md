@@ -1,9 +1,8 @@
 # C++
 
-> *C Programming: A Modern Approach* 
-> by K. N. King, 
+> *C Programming: A Modern Approach*
+> by K. N. King,
 > 2nd ed.
-
 
 ## Preprocessing et directives
 
@@ -11,29 +10,21 @@ The preprocessor remove all comments and sometimes even unnecessary white spaces
 
 ### includes
 
-The preprocessor will copy the content of the file. C standard headers (in `/usr/include`)
+The preprocessor will copy the content of the file. C standard headers in `<>` are in `/usr/include` and personnal headers `""` are in current directory
 
 ```C
 #include <c_standard_header.h>
-```
-
-personnal headers (in current directory or `/usr/include`)
-
-```C
 #include "my_header.h"
 ```
 
-(cf. 15.3 and on)
+> 15.3
 
 ### Macros
-
-```C
-#define MACRO some_thing
-```
 
 When `MACRO` is typed the preprocessor will type `some_thing` instead. To remove the macro:
 
 ```C
+#define MACRO some_thing
 #undef MACRO
 ```
 
@@ -43,7 +34,7 @@ Macro functions can also be defined. Macro functions may be faster then regular 
 #define MIN(a,b) ((a)<(b)?(a):(b))
 ```
 
-stringization `#a\bc -> "a\\bc"` and take-pasting `a##i -> a1` (for `i=1`):
+stringization `#(a\bc) -> "a\\bc"` and take-pasting `a##(1) -> a1`
 
 ```C
 #define PRINT(i) printf(#i "=%i\n",i)
@@ -64,9 +55,7 @@ Variable number of arguments
 
 ```C
 #define MACRO(a,...) some_thing(__VA_ARGS__)
-```
 
-```C
 #define DEBUG 0
 #if DEBUG
 /*
@@ -74,15 +63,11 @@ Variable number of arguments
  * code
  */
 #endif
-```
 
-```C
 defined(DEBUG) //returns 1 if DEBUG is defined, 0 otherwise
 #ifdef DEBUG   //same as #if defined(DEBUG)
 #ifndef DEBUG  //same as #if !defined(DEBUG)
-```
 
-```C
 #if ..1
 //blabla
 #elif ..2 //any number of #elif
@@ -90,46 +75,38 @@ defined(DEBUG) //returns 1 if DEBUG is defined, 0 otherwise
 #else //at most one #else
 //blabla
 #endif
-```
 
-```C
 #error, #line, #pragma, _Pragma
-```
-
-Protecting against multiple includes or definition, this in multiple files ensure it will be compile only once if all the files are included
-
-```C
-#ifndef BOOLEAN_H
-#define BOOLEAN_H
-#include<boolean.h>
-#define SUPER_BOOL 2
-typedef int boool;
-#endif
 ```
 
 ## Special identifiers
 
+```C++
 __func__ //return the name (char*) of the current function
+```
 
 ## Types
 
+```C++
 int, short, long, long long, unsigned int
 float, double, long double
 char //single quotes '': in ASCII from 0 to 127
+```
 
 ## Formatted strings
 
 ### Escape sequences
 
-| esc | | esc | |
-| - | - | - | - |
-| `\a` | alert | `\\` | backslash |
-| `\b` | backspace | `\?` | question mark |
-| `\f` | ?? | `\'` | single quote' |
-| `\n` | new line | `\"` | double quote" |
-| `\r` | carriage return | `%%` | percentage |
-| `\t` | tab | | |
-| `\v` | vertical tab | | |
+| esc | octal| | esc | |
+| - | - | - | - | - |
+| `\a` | `\07` | BEL | `\\` | backslash |
+| `\b` | `\010` | BS | `\?` | question mark |
+| `\t` | `\011` | HT | `\'` | single quote' |
+| `\n` | `\012` | LF | `\"` | double quote" |
+| `\v` | `\013` | VT | `%%` | percentage |
+| `\f` | `\014` | FF | | |
+| `\r` | `\015` | CR | | |
+| `\e` | `\033` | ESC | | |
 
 ### Placehodlers
 
@@ -147,32 +124,41 @@ char //single quotes '': in ASCII from 0 to 127
 
 ## Statements and expressions
 
+```C++
 ...; //simple statements
 { ...; ...; } //compound statements
-...1, ...2; //comma expression: value=...2
-...1 ? ...2 : ...3 //if (...1) ...2; else ...3;
+...1, ...2; //comma expression: v=...2
+...1 ? ...2 : ...3 //if ...1 then v=...2 else v=...3;
+```
 
 ### Selection statements
 
+```C++
 if ( ... ) ...; else ...; //if statement
-switch ( ...1 ) { case 2: ...2; break; case 3: ...3; } //switch statement: ...1 must be int, if ...1==2 then ...2 is executed, then break quit the switch statement
+switch ( ...1 ) { case 2: ...2; break; case 3: ...3; } //switch statement: ...1 must be integral type, if ...1==2 then ...2 is executed, then break quit the switch statement
+```
 
 ### Iteration statements
 
+```C++
 while ( ... ) ...; //while loop
 do ... while ( ... ) ; //do loop
 for ( ...1; ...2; ...3 ) ...4; //for loop
 ...1 ; while ( ..2 ) { ...4; ...3; } //for loop equivalent
 while (1) ...; for (;;) ...; //infinit loops
+```
 
 ### Jump statements
 
+```C++
 break; //break the loop
 continue; //break the interation
 goto id1; /*****/  id1: ...;
+```
 
 ## Input/Output
 
+```C++
 //printf :
 //puts : one argument: a string
 //putchar : one argument: a char
@@ -180,9 +166,11 @@ goto id1; /*****/  id1: ...;
 //scanf : start at first non-white space character, stops at a white space, tab, or new line
 //gets : stops at new line
 //getchar()
+```
 
-```C
-/*TYPES*********************/
+## Types
+
+```C++
 const long long unsigned ......
 typedef double meters;
 meters longeur; //stocked as a double, indicate that the value is to be thought as meters
@@ -193,8 +181,9 @@ static int a; //A variable with static storage duration has a permanent storage 
 extern int a; //declare the variable without defining it (ie. allocating space) because it is defined elsewhere (usally a header)
 ```
 
-```C
-/*BOOLEANS******************/
+## Booleans
+
+```C++
 #define true 1
 #define false 0
 typedef int bool;
@@ -208,13 +197,17 @@ int sum (int a,int b) { return a+b; }
 int sum (int a,int b); //function declaration to provide a complete description to the compiler if we want to define the function after its first call
 
 //functions can have side effect on pointers and array (not regular values)
+```
 
+## Characters
 
-
-/*CHARACTERS****************/
+```C++
 char c = 'a' //interpreted as an int (ASCII): 97 is the ASCII code for 'a'
+```
 
-/*ARRAYS********************/
+## Arrays
+
+```C++
 int a[5]; //initialize int array of length 5
 a[0]=0; //access array values, they act as an ordinary int variable
 int a[] = {1,2,3,4,5}; //initializer: automatically assign length
@@ -234,9 +227,11 @@ int m[2][2]={1,2,3,4};
 memcpy(a,b, sizeof(a));
 
 //array can be return values of functions
+```
 
-/*POINTERS******************/
+## Pointers
 
+```C++
 int *p; //p is a pointer: it is the address of a variable of type int
 int a; p=&a; //p now points to the address of a
 int b; b=*p; //b as the value stored in b, ie. the value of a
@@ -273,9 +268,11 @@ int *p=(int []){3,0,3,4,1}; //this is valid and the array is saved in memory eve
 //variably modified types (pointers to variable-length arrays
 int a[m][n], (*p)[n]=a; //this is the correct way to define a pointer pointing to a row of a
 for (p=a ; p<a+m ; p++) (*p)[i]=0; //this clears the column i of a
+```
 
-/*STRINGS*******************/
+## Strings
 
+```C++
 //strings literal: "abc"
 //strings are pointers to char
 //"abc"[3] is the null character \0
@@ -337,7 +334,7 @@ union {
 u.d = 10.; //u.i becomes meaningless
 ```
 
-> __Using Union to save space__
+> Using Union to save space
 
 ### 16.5 Enumerations
 
@@ -346,18 +343,14 @@ enum suit {club, diamond, heart, spade};
 //by default it will be treated as an int, with club=0,...,spade=3
 enum suit s1,s2=diamond;
 s2++; //now s2 is heart
-```
 
-```C
 typedef enum {True, False} Bool;
-```
 
-```C
 typedef enum {white, black, red=3, green=6, blue=9} color;
 //this imposes the compiler to assign specific int values to the enum constants
 ```
 
-> __Using Enumerations to Declare “Tag Fields”__
+> Using Enumerations to Declare “Tag Fields”
 
 ## Examples
 
@@ -372,7 +365,7 @@ i = 1 + (j=3);
 
 int i,j=0,k,l=0;
 i=j++;
-l=++l
+k=++l
 
 
 int i=0,a[N]; while(i<N) a[i++]=0;

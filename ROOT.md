@@ -14,6 +14,8 @@ ReadFileList(n_file,"path/to/file.list")
 
 `new TBrowser` vs `TBrowser b`
 
+`.include` `.class`
+
 ## Arborescence ROOT
 
 ```C++
