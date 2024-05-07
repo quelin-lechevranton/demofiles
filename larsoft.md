@@ -24,16 +24,17 @@
 | `anab::Calorimetry` | calorimetric measurement for each plane and each `Track` |
 | `recob::Shower` | shower reconstruction on hits from a shower-like `PFParticle` |
 
-## User-defined Types
+## Tracks
 
-| | |
+### User-defined Types [`RecoBase/TrackingTypes.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/TrackingTypes.h)
+
+| typename | description |
 | - | - |
 | `Point_t` | [`PositionVector3D`](https://root.cern.ch/doc/master/classROOT_1_1Math_1_1PositionVector3D.html) |
 | `Vector_t` | [`DisplacementVector3D`](https://root.cern.ch/doc/master/classROOT_1_1Math_1_1DisplacementVector3D.html) |
+| `TrajectoryPoint_t` | `struct {P_t p; V_t m; V_t direction() return m.Unit();}` |
 
-## Tracks
-
-### Trajectories [`RecoBase/Trajectory`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/Trajectory.h)
+### Trajectories [`RecoBase/Trajectory.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/Trajectory.h)
 
 | members | description |
 | - | - |
@@ -45,12 +46,13 @@
 | `MomentumVectorAtPoint(i)` | `fMomenta[i]` |
 | `MomentumAtPoint(i)` | `fMomenta[i].R()`|
 | `DirectionAtPoint(i)` | `fMomenta[i]/fMomenta[i].R()` |
+| `TrajectoryPoint(i)` | `(TrajectoryPoint_t) {fPositions[i],fMomenta[i]}` |
 | | |
 | `Length()` | sum of the distances between adjacent points |
 | `Start()` | position at the first valid point |
-| `End()` | position at the last valid point |
+| `End()` | position at the last valid point (track ends can be mixmatched) |
 
-### Track Trajectories [`RecoBase/TrackTrajectory.h)`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/TrackTrajectory.h)
+### Track Trajectories [`RecoBase/TrackTrajectory.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/TrackTrajectory.h)
 
 ### Tracks [`RecoBase/Track.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/Track.h)
 

@@ -71,6 +71,11 @@ Events->simb::MCTruths_cosmicgenerator__SinglesGen.obj.fPartList.Py()/simb::MCTr
 TNamed <- TObject .
 ```
 
+| | | | | |
+| - | - | - | - | - |
+| `TObject` | `TNamed` | `TDirectory` | `TDirectoryFile` | `TFile` |
+| `TAtt*` | | `TTree` | | |
+
 ```ROOT
 TFile <- TDirectoryFile <- TDirectory <- TNamed
 ```
@@ -96,6 +101,7 @@ TFile file("file.root");
 TObject* obj = file.Get("path/to/obj");
 TTree* tree = file.Get<TTree>("path/to/obj");
 TTree* tree = (TTree*) file.Get("path/to/obj");
+TTree* tree; file.GetObject("path/to/obj",tree);
 ```
 
 ```C++
@@ -154,3 +160,35 @@ enum { kWhite=0, kBlack=1, kRed=632, kGreen=416 } //and so on
 ## Random Notes
 
 `SetMarkerSize(size_t msize)` doesn't affect default marker size `SetMarkerStyle(20)` is needed.
+
+## ?
+
+[__ROOT architecture and components__](https://root.cern/manual/root_architecture_and_components/)
+
+[`TTree` __tuto__](https://root.cern/manual/trees/#introducing-ttree)
+
+[`TTree::Draw()`](https://root.cern.ch/doc/master/classTTree.html#a73450649dc6e54b5b94516c468523e45)
+
+[`TTree::AddFriend()`](https://root.cern.ch/doc/master/classTTree.html#a011d362261b694ee7dd780bad21f030b)
+
+[`TChain::TChain()`](https://root.cern.ch/doc/master/classTChain.html#a53f013071a6d8ebef98a19fefacb4160)
+
+```C++
+TChain c("a/c");
+TChain d("a/d");
+c.AddFriend("a/d");
+c.Draw("v1:d.v2","","");
+```
+
+[`RDataFrame`](https://root.cern/doc/master/classROOT_1_1RDataFrame.html)
+
+[__examples__](https://root.cern/doc/master/group__tutorial__dataframe.html)
+
+[__dataframe__](https://root.cern/doc/master/group__dataframe.html)
+
+[`RDataFrame::Graph`](https://root.cern/doc/master/classROOT_1_1RDF_1_1RInterface.html#a1ca9a94bece4767cac82968910afa02e)
+
+```C++
+ROOT::RDataFrame rdf(c);
+rdf.Filter("").Draw("");
+```

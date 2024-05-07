@@ -21,36 +21,18 @@ private:
 ```C++
 InputTag::InputTag(string const& s)
 {
-    vector<string> tokens;
-    boost::split(tokens, s, boost::is_any_of(":"), boost::token_compress_off);
-    auto const nwords = tokens.size();
-    if (nwords > 3u) {
-    throw Exception(errors::Configuration,
-    "An error occurred while creating an input tag.\n")
-    << "The string '" << s
-    << "' has more than three colon-delimited tokens.\n"
-    "The supported syntax is '<module_label>:<optional instance "
-    "name>:<optional process name>'.";
-    }
-    if (nwords > 0) {
-        label_ = tokens[0];
-    }
-    if (nwords > 1) {
-        instance_ = tokens[1];
-    }
-    if (nwords > 2) {
-        process_ = tokens[2];
-    }
+//     InputTag it("label::process");  -> it.instance(): ""
+//     InputTag it("label:instance");  -> it.process(): ""
+//     InputTag it("label");           -> it.instance(), it.process(): ""
 }
 InputTag::InputTag(char const* s) : InputTag{string{s}} {}
+InputTag::InputTag("label","instance");
 ```
 
 ### Examples: constructor calls
 
 ```C++
-InputTag("label::process")  //it.instance(): ""
-InputTag("label:instance")  //it.process(): ""
-InputTag("label")           //it.instance(), it.process(): ""
+
 ```
 
 ## Handles
