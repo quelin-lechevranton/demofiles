@@ -2,16 +2,27 @@
 
 ## Meta tags
 
-| tag | description |
+| environments | description |
 | - | - |
 | `<html>` | all html code |
-| `<head>` | text usually displayed in the tab element |
+| `<head>` | metadata |
 | `<body>` | all shown elements |
-| `<title>` | inside `<head>` |
+| `<!DOCTYPE html>` | |
+| `<?xml version="1.0" ?>` | |
 
-`<!DOCTYPE html>`
+## Head
 
-`<?xml version="1.0" ?>`
+| tag | attributes | description |
+| - | - | - |
+| `<title>` | | displayed in the tab |
+| `<meta/>` | | |
+| `<link/>` | `href` | `"path/to/file.css"` |
+| | `type` | `"text/css"` |
+| | `rel` | `stylesheet` |
+| `<style>` | | CSS block inside html |
+| | `type` | `"text/css"` |
+
+> p191
 
 ## Structural markup
 
@@ -28,6 +39,12 @@
 | `<sub>` | | subscript |
 | `<br/>` | | linebreak |
 | `<hr/>` | `---` | horizontal rule |
+
+| tag | description |
+| - | - |
+| `<!-- -->` | comments |
+| `<div>` | environment contains a series of elements into a block element |
+| `<span>` | environment contains a series of elements into an inline element |
 
 ## Semantic markup
 
@@ -59,28 +76,15 @@
 
 | tag | attribute | description |
 | - | - | - |
-| `<a>` | `href` | URL, mail address with `mailto:` prefix |
+| `<a>` | `href` | URL |
 | | `target` | `"_blank"` opens in a new tab |
 
-### Uniform Resource Locator
-
-#### Absolute URLs
-
-- domain name: `www.site.org`
-
-- path to file: `/path/to`
-
-- default page: `index.html`
-
-- `<a href="https://www.site.org/path/to"> link text</a>` returns `siterootfolder/path/to/index.html`
-
-- `<a href="../file.html">` returns `siterootfolder/path/index.html`
-
-- `<a href="#head">` returns to `<h1 id="head">` in the same page
-
-```html
-<a href="mailto:cremepatissiere@proton.me">mail me!</a>
-```
+| URL type | syntax |
+| - | - |
+| absolute | `"https://www.site.org/path/to"` returns `/path/to/index.html` |
+| relative | `"../file.html` returns /path/file.html"` |
+| in-file | `#head` goes to `<h1 id="head">` in the same page |
+| emails | `"mailto:name@domain.org"` opens mailer |
 
 ## Objects
 
@@ -99,6 +103,11 @@
 | | `rowspan` | number of rows spanned by the data |
 | `<th>` | | table heading used in a `<td>` emplacement |
 | | `scope` | `"row"` or `"col"` |
+| `<iframes>` | | inline frame containing a html page |
+| | `src` | html page URL |
+| | `height` | height in pixels |
+| | `width` | width in pixels |
+| | `seamless` | `"seamless"` remove scrollbar |
 
 ## Forms
 
@@ -137,18 +146,14 @@
 
 > p162
 
-## Some more
+## Audio Video Disco
 
-Block elements always start on a new line: `<h1>`, `<div>`, `<p>`, `<ul>`, `<li>`
+> p200
 
-Inline elements always appear on the same line: `<a>`, `<b>`, `<em>`, `<img/>`
-
-| tag | description |
+| | |
 | - | - |
-| `<!-- text -->` | comments |
-| `<div>` | environment contains a series of elements into a block element |
-| `<span>` | environment contains a series of elements into an inline element |
-| `<iframes>` | |
+| `<video>` | |
+| `<audio>` | |
 
 ## Global attributes
 
@@ -156,3 +161,12 @@ Inline elements always appear on the same line: `<a>`, `<b>`, `<em>`, `<img/>`
 | - | - |
 | `id` | identify uniquely an element for `css` or `js`|
 | `class` | identify multiple elementes for `css` or `js` |
+
+## Escape characters [cf.](https://htmlandcssbook.com/extras/html-escape-codes/)
+
+| | |
+| - | - |
+| `&lt;` | `<` |
+| `&gt;` | `>` |
+| `&quot;` | `"` |
+| `&amp;` | `&` |
