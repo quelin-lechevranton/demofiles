@@ -1,9 +1,14 @@
 * {
     font-family: "Cascadia Mono";
+    /* border-width: 1;
+    border-style: solid;
+    border-color: #000000; */
+    background-color: #00000039;
 }
 h1 {
-    color: brown;
+    color: #a52a2a;
 }
 p {
-    color: blue
+    color: #0000ff;
+    font-size: 16px;
 }

@@ -2,7 +2,7 @@
 
 ## Meta tags
 
-| environments | description |
+| tags | description |
 | - | - |
 | `<html>` | all html code |
 | `<head>` | metadata |
@@ -43,8 +43,8 @@
 | tag | description |
 | - | - |
 | `<!-- -->` | comments |
-| `<div>` | environment contains a series of elements into a block element |
-| `<span>` | environment contains a series of elements into an inline element |
+| `<div>` | element containing a series of child elements into a block element |
+| `<span>` | element containing a series of child elements into an inline element |
 
 ## Semantic markup
 
