@@ -155,6 +155,19 @@
 | `<video>` | |
 | `<audio>` | |
 
+## Layout elements
+
+These are block-level elements in the same away as `<div>` with evocative names
+
+| | |
+| - | - |
+| `<header>` | |
+| `<footer>` | |
+| `<nav>` | |
+| `<section>` | |
+| `<article>` | |
+| `<aside>` | |
+
 ## Global attributes
 
 | attribute | description |

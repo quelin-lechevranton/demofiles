@@ -1,5 +1,32 @@
-
 # LArSoft: *liquid argon software*
+
+## Generation
+
+| PDVD | |
+| - | - |
+| x | `-340->340` |
+| y | `-337->337` |
+| z | `0->200` |
+| θxz | `atan(Px/Pz)` : `180->360` |
+| θyz | `atan(Py/PTy)=acos(Py/P)` : `-90->90` |
+
+## Module
+
+bla_module.cc using EDAnalyzer.h
+
+blabla.fcl
+
+compilation avec mrb
+
+run avec lar -c blabla.fcl
+
+## GeoTypes [geo_vectors.h](https://github.com/LArSoft/larcoreobj/blob/develop/larcoreobj/SimpleTypesAndConstants/geo_vectors.h)
+
+| typename | description |
+| - | - |
+| `geo::Length_t` | `double` |
+| `geo::Point_t` | [`PositionVector3D`](https://root.cern.ch/doc/master/classROOT_1_1Math_1_1PositionVector3D.html) |
+| `geo::Vector_t` | [`DisplacementVector3D`](https://root.cern.ch/doc/master/classROOT_1_1Math_1_1DisplacementVector3D.html) |
 
 ## Data products
 
@@ -19,10 +46,51 @@
 | `recob::Hit` | gaussian fit on `Wire` |
 | `recob::Cluster` | `Hit` coincidence on multiple wires of one plane |
 | `recob::SpacePoint` | `Cluster` coincidence on all three planes |
-| `recob::PFParticle` | collection of `Cluster` produced by one particle |
+| `recob::PFParticle` | collection of `Cluster` produced by one reconstructed particle |
 | `recob::Track` | track reconstruction on appropriate hits from a track-like `PFParticle` |
 | `anab::Calorimetry` | calorimetric measurement for each plane and each `Track` |
 | `recob::Shower` | shower reconstruction on hits from a shower-like `PFParticle` |
+
+## Truth
+
+### Trajectory [`SimulationBase/MCTtrajectory.h`](https://github.com/NuSoftHEP/nusimdata/blob/develop/nusimdata/SimulationBase/MCTrajectory.h)
+
+| members | description |
+| - | - |
+| __private__ | |
+| `ftrajectory` | `vector<pair<TLorentzVector, TLorentzVector>>` |
+| __public__ | |
+| `Position(i)` | `ftrajectory[i].first` |
+| `Momentum(i)` | `ftrajectory[i].second` |
+| `TotalLength()` | `(double)` sum of the distances between adjacent positions |
+
+### Particle [`SimulationBase/MCParticle.h`](https://github.com/NuSoftHEP/nusimdata/blob/develop/nusimdata/SimulationBase/MCParticle.h)
+
+| members | description |
+| - | - |
+| __private__ | |
+| `fpdgCode` | `int` |
+| `ftrajectory` | `simb::MCTrajectory` |
+| `fdaughters` | `set<int>` |
+| __public__ | |
+| `PdgCode()` | `fpdgCode` |
+| `Position(i)` | `ftrajectory.Position(i)` |
+| `Momentum(i)` | `ftrajectory.Momentum(i)` |
+| `Daugther(i)` | `i`-th daughter's ID |
+
+### Truth [`SimulationBase/MCTruth.h`](https://github.com/NuSoftHEP/nusimdata/blob/develop/nusimdata/SimulationBase/MCTruth.h)
+
+| members | description |
+| - | - |
+| __private__ | |
+| `fPartList` | `vector<simb::MCParticle>` |
+| __public__ | |
+| `GetParticle(i)` | `fPartList[i]` |
+| `GetNeutrino(i)` | `fMCNeutrino` |
+
+## Clusters [`RecoBase/Cluster.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/Cluster.h)
+
+## PFParticles [`RecoBase/PFParticle.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/PFParticle.h)
 
 ## Tracks
 
@@ -42,7 +110,7 @@
 | `fPositions` | `vector<Point_t>` position at each point of the trajectory |
 | `fMomenta` | `vector<Vector_t>` momentum at each point of the trajectory |
 | __public__ | |
-| `PositionAtPoint(i)` | `fPositions[i]` |
+| `LocationAtPoint(i)` | `fPositions[i]` |
 | `MomentumVectorAtPoint(i)` | `fMomenta[i]` |
 | `MomentumAtPoint(i)` | `fMomenta[i].R()`|
 | `DirectionAtPoint(i)` | `fMomenta[i]/fMomenta[i].R()` |
@@ -54,6 +122,8 @@
 
 ### Track Trajectories [`RecoBase/TrackTrajectory.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/TrackTrajectory.h)
 
+`class TrackTrajectory : private recob::Trajectory {...};`
+
 ### Tracks [`RecoBase/Track.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/Track.h)
 
 | members | description |
@@ -62,58 +132,85 @@
 | `fTraj` | `TrackTrajectory` |
 | `...` | |
 | __public__ | |
-| `Theta(i)` | angle of the momentum vector, by default at the first valid point |
-| `Phi(i)` | same |
-| `ZenithAngle(i)` | same |
-| `AzimuthAngle(i)` | same |
+| `LocationAtPoint(i)` | `fTraj.LocationAtPoint(i)` |
+| `Start()` | `fTraj.Start()` |
 | `...` | |
 
-## Clusters [`RecoBase/Cluster.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/Cluster.h)
+## Calorimetry [`AnalysisBase/Calorimetry.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/AnalysisBase/Calorimetry.h)
 
-## PFParticles [`RecoBase/PFParticle.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/PFParticle.h)
+## Showers [`RecoBase/Shower.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/Shower.h)
 
-## [`dunereco/AnaUtils`](https://github.com/DUNE/dunereco/blob/develop/dunereco/AnaUtils)
+## Object Associations
 
 ### Namespaces
 
 ```C++
-std::vector
-str::string
-art::Event
-art::Ptr
+using namespace std;
+using namespace art;
+using namespace recob;
+namespace danaEvt=dune_ana::DUNEAnaEventUtils;
+namespace danaPFP=dune_ana::DUNEAnaPFParticleUtils;
 ```
 
-### Declarations [`DUNEAnaUtilsBase.h`](https://github.com/DUNE/dunereco/blob/develop/dunereco/AnaUtils/DUNEAnaUtilsBase.h#L26)
+### [`dunereco/AnaUtils`](https://github.com/DUNE/dunereco/blob/develop/dunereco/AnaUtils)
 
 ```C++
-namespace dune_ana {
-class DUNEAnaUtilsBase {
-protected:
-    template <typename T>
-    static vector<Ptr<T>> GetProductVector(const Event &evt, const string &label);
+vector<Ptr<PFP>> const vp_pfp = danaEvt::GetPFParticles(evt,label_pfp);
 
-    template <typename T, typename U>
-    static vector<Ptr<T>> GetAssocProductVector(const Ptr<U> &part, const Event &evt, const string &label, const string &assocLabel);
+for (Ptr<PFP> const & p_pfp : vp_pfp) {
+    if (!danaPFP::IsTrack(p_pfp,evt,label_pfp,label_tack)) {
+        /* */
+    }
+    else {
+        Ptr<Track> const p_track = danaPFP::GetTrack(p_pfp,evt,label_pfp,label_track);
+        /* */
+    }
 
-    template <typename T, typename U>
-    static Ptr<T> GetAssocProduct(const Ptr<U> &part, const Event &evt, const string &label, const string &assocLabel); 
-};
+    vector<Ptr<SpacePoint>> const vp_point = danaPFP::GetSpacePoints(p_pfp,evt,label_point);
+    for (Ptr<SpacePoint> const & p_point : vp_point) {
+        /* */
+    }
 }
 ```
 
-#### Pseudo code
+### [`FindManyP`](https://code-doc.larsoft.org/docs/latest/html/FindManyP_8h_source.html)
 
 ```C++
-vector<Ptr<Hit>> hitsPtrVec = GetHits(trackPtr,ev,track_label)
-//where
-DUNEAnaTrackUtils::GetHits(trackPtr,ev,track_label) ==
-DUNEAnaUtilsBase::GetProductVector<recob::Hit>(trackPtr,evt,track_label,track_label)
-{
-    vh = ev.getValidHandle<Track>(track_label);
-    FindManyP<Hit> fmp(vh,ev,track_label);
-    return fmp.at(trackPtr.key());
+ValidHandle<vector<PFP>> const vh_pfp = evt.getValidHandle<vector<PFP>>(tag_pfp);
+vector<Ptr<PFP>> vp_pfp;
+fill_ptr_vector(vp_pfp,vh_pfp);
+
+FindManyP<Track> const fmp_track(vp_pfp,evt,label_track);
+FindManyP<SpacePoint> const fmp_point(vp_pfp,evt,label_point);
+
+for (Ptr<PFP> const & p_pfp : vp_pfp) {
+    vector<Ptr<Track>> vp_track = fmp_track.at(p_pfp.key());
+
+    if(vp_track.empty()) {
+        /* */
+    }
+    else {
+        Ptr<Track> p_track = vp_track[0];
+        /* */
+    }
+
+    vector<Ptr<SpacePoint>> vp_point = fmp_point.at(p_pfp.key());
+    for (Ptr<SpacePoint> const & p_point : vp_point) {
+        /* */
+    }
 }
 ```
+
+### `AnaUtils` Who Gets Who
+
+| From | Get |
+| - | - |
+| `Hit` | `SpacePoints` |
+| `Cluster` | `Hits` |
+| `SpacePoint` | `Hits` |
+| `Track` | `Hits` `SpacePoints` `PFParticle` |
+| `Shower` | `Hits` `SpacePoints` `PFParticle` |
+| `PFParticle` | `Hits` `SpacePoints` `Track` `Shower` `Slice` `Vertex` `ChildParticles` `...` |
 
 ## MetaCat
 

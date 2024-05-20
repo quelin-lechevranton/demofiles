@@ -2,6 +2,10 @@
 
 `selector { property: value; }`
 
+`@import url("file.css");`
+
+`@font-face { ... }`
+
 ## Selectors
 
 | selector | |
@@ -16,35 +20,45 @@
 | `t+g` | first tag `<g>` following a tag `<t>` |
 | `t~g` | all tags `<g>` following a tag `<t>` |
 
+| pseudo-classes| |
+| - | - |
+| `t:first-letter` | first letter in `<t>` |
+| `t:first-line` | first line in `<t>` |
+| `t:link` | unvisited links in `<t>` |
+| `t:visited` | visited links in `<t>` |
+| `t:hoover` | |
+| `t:active` | |
+| `t:focus` | |
+
+| attribute selector | |
+| - | - |
+| `t[a]` | all tags `<t>` with an attribute `a` |
+| `t[a="a"]` | all tags `<t>` with an attribute `a` whose value is `"a"` |
+| `t[a~="a"]` | all tags `<t>` with an attribute `a` with in `"a"` in the list of its values |
+| `t[a^="a"]` | all tags `<t>` with an attribute `a` whose value starts with `"a"` |
+| `t[a*="a"]` | all tags `<t>` with an attribute `a` whose value contains `"a"` |
+| `t[a$="a"]` | all tags `<t>` with an attribute `a` whose value ends with `"a"` |
+
 The most specific selector takes precedence.
 
 Some properties are inherited by child elementes.
 
-## Colors
-
-`rgb`
-`rgba`
-`hex`
-147 predefined names
-`hsl`
-`hsla`
-
 ## Fonts
 
-| | |
+A typeface is a group of fonts
+
+| | font |
 | - | - |
 | generic | `serif` `sans-serif` `monospace` `cursive?` `fantasy?` |
 | weigth | `ligth` `medium` `bold` `black` |
 | style | `normal` `italic` `oblique` |
 | stretch | `condensed` `regular` `extended` |
 
-| | |
+| CSS | |
 | - | - |
 | `pt` | 1/72 of an inch |
 | `px` | a "physical" pixel is 3/4 of a point |
 | `in` | one inch is 2.54 cm |
-| `ppi` | pixel per inch (displaying) |
-| `dpi` | dot per inch (printing) |
 
 | TeX | | |
 | - | - | - |
@@ -53,3 +67,7 @@ Some properties are inherited by child elementes.
 | `pc` | pica | 12 points |
 | `ex` | | height of an `x` |
 | `em` | | width of an `M` |
+
+## Layout
+
+> p363

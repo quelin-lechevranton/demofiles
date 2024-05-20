@@ -16,7 +16,7 @@ ReadFileList(n_file,"path/to/file.list")
 
 `.include` `.class`
 
-## Arborescence ROOT
+## Arborescence LArSoft in ROOT
 
 ```C++
 $ root path/to/file.root
@@ -161,7 +161,24 @@ enum { kWhite=0, kBlack=1, kRed=632, kGreen=416 } //and so on
 
 `SetMarkerSize(size_t msize)` doesn't affect default marker size `SetMarkerStyle(20)` is needed.
 
-## ?
+`TGraph2D::GetXaxis->SetTitle("");` doesn't work
+
+### Change GUI fonts
+
+in `$HOME/.rootrc`
+
+```rootrc
+Gui.DefaultFont:            -Arial-medium-r-*-*-16-*-*-*-*-*-iso8859-1
+Gui.DefaultFont:            -Arial-medium-r-*-*-16-*-*-*-*-*-iso8859-1
+Gui.MenuFont:               -Arial-medium-r-*-*-16-*-*-*-*-*-iso8859-1
+Gui.MenuHiFont:             -Arial-bold-r-*-*-16-*-*-*-*-*-iso8859-1
+Gui.DocFixedFont:           -Cascadia Mono-medium-r-*-*-16-*-*-*-*-*-iso8859-1
+Gui.DocPropFont:            -Arial-medium-r-*-*-16-*-*-*-*-*-iso8859-1
+Gui.IconFont:               -Arial-medium-r-*-*-14-*-*-*-*-*-iso8859-1
+Gui.StatusFont:             -Arial-medium-r-*-*-16-*-*-*-*-*-iso8859-1
+```
+
+## `ROOT::RDataFrame` & `TTree`
 
 [__ROOT architecture and components__](https://root.cern/manual/root_architecture_and_components/)
 
@@ -169,9 +186,18 @@ enum { kWhite=0, kBlack=1, kRed=632, kGreen=416 } //and so on
 
 [`TTree::Draw()`](https://root.cern.ch/doc/master/classTTree.html#a73450649dc6e54b5b94516c468523e45)
 
+`TTree::Scan()` ?
+
 [`TTree::AddFriend()`](https://root.cern.ch/doc/master/classTTree.html#a011d362261b694ee7dd780bad21f030b)
 
 [`TChain::TChain()`](https://root.cern.ch/doc/master/classTChain.html#a53f013071a6d8ebef98a19fefacb4160)
+
+```C++
+int a;            //pourquoi pas un pointer??
+vector<int>* b;
+tree->SetBranchAddress("branch_a", &a);
+tree->SetBranchAddress("branch_b", &b);
+```
 
 ```C++
 TChain c("a/c");
@@ -182,13 +208,26 @@ c.Draw("v1:d.v2","","");
 
 [`RDataFrame`](https://root.cern/doc/master/classROOT_1_1RDataFrame.html)
 
-[__examples__](https://root.cern/doc/master/group__tutorial__dataframe.html)
-
 [__dataframe__](https://root.cern/doc/master/group__dataframe.html)
 
 [`RDataFrame::Graph`](https://root.cern/doc/master/classROOT_1_1RDF_1_1RInterface.html#a1ca9a94bece4767cac82968910afa02e)
 
+[__Tutorials__](https://root.cern/doc/master/group__tutorial__dataframe.html)
+
+### Constructors
+
 ```C++
-ROOT::RDataFrame rdf(c);
-rdf.Filter("").Draw("");
+ROOT::RDataFrame rdf("treename","file.root");
+```
+
+### Filter()
+
+```C++
+ROOT::RDF::RInterface<ROOT::Detail::RDF::RJittedFilter, void> &
+```
+
+```C++
+bool condition (/**/) {/**/};
+rdf.Filter("condition(fX)");
+
 ```
