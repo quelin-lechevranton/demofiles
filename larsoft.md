@@ -20,6 +20,22 @@ compilation avec mrb
 
 run avec lar -c blabla.fcl
 
+```bash
+fhicl-dump --help
+lar --print-available module
+lar --prin-description "modulename"
+nohup lar ?? >&amp; pg.out
+pgrep lar
+```
+
+```C++
+Constructor (fhicl::ParameterSet const & fcl) {
+    type_t x = p.get<type_t>("parameterNameInFhicl",x_default);
+}
+// if the parameter is a sequence: type_t = vector<...>
+// if the parameter is a table: type_t = struct {...}
+```
+
 ## GeoTypes [geo_vectors.h](https://github.com/LArSoft/larcoreobj/blob/develop/larcoreobj/SimpleTypesAndConstants/geo_vectors.h)
 
 | typename | description |

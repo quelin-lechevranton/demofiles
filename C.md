@@ -4,6 +4,17 @@
 > by K. N. King,
 > 2nd ed.
 
+## ???
+
+```C
+int main (int argc, char *argv[]) { ... return 0;}
+```
+
+```bash
+cc test.c -o test.out
+./test.out arg1 arg2 arg3
+```
+
 ## Preprocessing et directives
 
 The preprocessor remove all comments and sometimes even unnecessary white spaces. Directives can appear anywhere in a program

@@ -95,7 +95,7 @@ v?.[i] //returns undefined if v has no supscript
 ```javascript
 let today = 2024;
 let proto = { 
-    name: "jeremy",
+    name: "jacques",
     birth: 0,
     age() { return today - this.birth;}
 }
@@ -105,7 +105,7 @@ person.birth=2001;
 class Person {
     //private properties start with #
     #id = 0; 
-    name = "jeremy";
+    name = "jacques";
 
     //static members are access via the constructor namespace
     static today = 2024;
@@ -192,6 +192,32 @@ not comments allowed
 ```javascript
 let str = JSON.stringify(obj);
 let obj = JSON.parse(str);
+```
+
+## Modularity
+
+```javascript
+//in file1.js:
+const days = ["niti","getu","ka","sui","moku","kin","do"];
+const default "youbi";
+// const weekday = "youbi";
+// const default weekday; //is this legit?
+
+export function dayName(i) { return days[i]; }
+export function dayNumber(d) { return days.indexOf(d); }
+export function dayFullName(i) { return days[i]+"youbi"; }
+
+//in file2.js:
+import {dayName, dayNumber} from "./file1.js";
+console.log(day.dayName(3));
+
+//in file3.js:
+import weekday from "./file1.js";
+//weekday === "youbi"
+
+//in file4.js
+import * as day from "./file1.js";
+console.log(day.dayFullName(3));
 ```
 
 ## Examples

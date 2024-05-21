@@ -53,6 +53,7 @@ alias {gstat,gs}='git status'
 find -name "full_name_of_file.extension"
 rename --help
 
+
 ????????????????????????????????
 df -h
 du -h -d 1 .
@@ -61,9 +62,10 @@ ln -s
 less / more ?
 export #add something to the tail of the variable? export PATH=something ???
 $ sh vs. $ source
-
-ls -Rlh <folder>
+kill ??
 history
+
+> | <
 
 --------- DNF ---------
 dnf list --installed | grep <package_name>

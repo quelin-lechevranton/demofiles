@@ -10,7 +10,7 @@
 
 ## ??
 
-`.cc` `.cxx` `.hxx` `.h.in`
+`.cc` `.cxx` `.hxx` `.h.in` `.so` `.gdml`
 
 ## A tour of C
 
