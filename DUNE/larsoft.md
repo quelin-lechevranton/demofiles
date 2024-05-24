@@ -44,13 +44,13 @@ Constructor (fhicl::ParameterSet const & fcl) {
 | `geo::Point_t` | [`PositionVector3D`](https://root.cern.ch/doc/master/classROOT_1_1Math_1_1PositionVector3D.html) |
 | `geo::Vector_t` | [`DisplacementVector3D`](https://root.cern.ch/doc/master/classROOT_1_1Math_1_1DisplacementVector3D.html) |
 
-## Data products
+## Data products [cf. practical guide](https://indico.fnal.gov/event/20453/contributions/57771/attachments/36174/44057/larsofttutorial1.pdf)
 
 | object | description |
 | - | - |
-| `simb::MCTruth` | |
-| `simb::MCParticle` | |
-| `sim::SimEnergyDeposit` | |
+| `simb::MCTruth` | information about the generation (before G4) |
+| `simb::MCParticle` | all particle information: one instance by `MC::Truth` then one by G4 |
+| `sim::SimEnergyDeposit` | G4 |
 
 | object | description |
 | - | - |
@@ -215,6 +215,26 @@ for (Ptr<PFP> const & p_pfp : vp_pfp) {
         /* */
     }
 }
+```
+
+## ???
+
+```C++
+art::Ptr<recob::Track> ptrack(trackListHandle, i);
+const recob::Track& track = *ptrack;
+
+const simb::MCParticle* daughter1 = pi_serv->TrackIdToParticle_P((particleP1->Daughter(i_daugther)));
+
+art::Handle<vector<recob::Hit>> h_hit= /* ... */;
+for (int i=0; i<h_hit->size(); i++) {
+    art::Ptr<recob::Hit> p_hit(h_hit,i);
+}
+
+const simb::MCParticle *particleP = truthUtil.GetMCParticleFromRecoTrack(track,evt,fTrackModuleLabel);
+if(!particleP) continue;
+const art::Ptr<simb::MCTruth> mcP=pi_serv->TrackIdToMCTruth_P(particleP->TrackId());
+if(!mcP) continue;
+double distance = 99999
 ```
 
 ### `AnaUtils` Who Gets Who

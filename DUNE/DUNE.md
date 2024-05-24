@@ -1,13 +1,36 @@
-# DUNE: Deep Underground Neutrion Experiment
+# DUNE: Deep Underground Neutrino Experiment
+
+[NuFIT](http://www.nu-fit.org/)
 
 ## Q?
 
 - some tracks are way off the detector limits while space points stay inside
 - howto: `$ lar -c c.fcl -o out.root`
 
+- `Calorimetry::fTrkPitch`
+- `Calorimetry::fXYZ`
+- `anab::T0`
+- `GetSimEnergyDeposit(MCParticle)`
+
+### IRN Thibaut
+
+- Statistics / systematics / resolution
+- Coldbox ?
+- ProtoDUNE-VD : pourquoi autant de vide ?
+
 ## Todo
 
 - `TrkSt` <-> `TrkEnd`
+- `SimEnerDep::trackid` `SimEnerDep::originTrackid`
+- `MCCheater`
+- michel electrons track length (reco: ~10 cm)
+- \#michel elec with track / #michel elec
+- \#michel elec / \#muon gen
+- for events with maxTrkLen < 30 cm => sum des EnergDep / CluSumADC / CluIntFit
+
+- website with `jsROOT` instead of slide shows for presentations
+- SublimeText: ssh/vim/web
+- include path to cvmfs
 
 ## Ideas
 

@@ -10,6 +10,18 @@ R__ADD_INCLUDE_PATH("...")
 ReadFileList(n_file,"path/to/file.list")
 ```
 
+```C++
+TCanvas* c = new TCanvas("c","c");
+c->cd();
+for ( int i=0; i!=255; i++) { 
+  ss << "#color[" << i << "]{" << i << "} "; 
+  if (i%20==0) { 
+    l.DrawLatex(0,1.-1./255.*i,ss.str().c_str());
+    ss.str("");
+  }
+}
+```
+
 `TFile file("file.root")` vs `TFile* file=TFile::Open("file.root")`
 
 `new TBrowser` vs `TBrowser b`
