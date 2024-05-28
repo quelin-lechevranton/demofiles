@@ -1,28 +1,62 @@
 # HyperText Markup Language
 
+## Tags
+
+`<! >`
+`<? ?>`
+`<!-- -->`
+`< >`
+`< \>`
+
 ## Meta tags
 
 | tags | description |
 | - | - |
-| `<html>` | all html code |
-| `<head>` | metadata |
-| `<body>` | all shown elements |
-| `<!DOCTYPE html>` | |
+| `<!doctype html>` | informs browser that this is a modern HTML document|
 | `<?xml version="1.0" ?>` | |
+| *`<html>` | all html code |
+| *`<head>` | metadata |
+| *`<body>` | all shown elements |
+
+*those tags are in practice optional since there is a standard way used by all browsers to automatically add them in documents missing them.
+
+n.b. quotes around attribute values are now optional (source?)
 
 ## Head
 
-| tag | attributes | description |
+| tag | attributes | values & description |
 | - | - | - |
 | `<title>` | | displayed in the tab |
 | `<meta/>` | | |
+| | `charset` | `"utf-8"` |
+
+> p191
+
+## CSS
+
+| tag | attributes | values & description |
+| - | - | - |
 | `<link/>` | `href` | `"path/to/file.css"` |
 | | `type` | `"text/css"` |
-| | `rel` | `stylesheet` |
+| | `rel` | `"stylesheet"` |
 | `<style>` | | CSS block inside html |
 | | `type` | `"text/css"` |
 
-> p191
+## JS
+
+| tag | attributes | values & description |
+| - | - | - |
+| `<script>` | ∅ | JS script inside html |
+| | `src` | `"path/to/file.js"` (with nothing between tags) |
+| | `type` | `"module"` |
+| `<button>` | `onclick` | `"/*some js code*/;"` executes code on click |
+
+## Global attributes
+
+| attribute | description |
+| - | - |
+| `id` | identify uniquely an element for `css` or `js`|
+| `class` | identify multiple elementes for `css` or `js` |
 
 ## Structural markup
 
@@ -45,6 +79,19 @@
 | `<!-- -->` | comments |
 | `<div>` | element containing a series of child elements into a block element |
 | `<span>` | element containing a series of child elements into an inline element |
+
+## Layout elements
+
+These are block-level elements in the same away as `<div>` with evocative names
+
+| | |
+| - | - |
+| `<header>` | |
+| `<footer>` | |
+| `<nav>` | |
+| `<section>` | |
+| `<article>` | |
+| `<aside>` | |
 
 ## Semantic markup
 
@@ -74,7 +121,7 @@
 
 ## Links
 
-| tag | attribute | description |
+| tag | attribute | values & description |
 | - | - | - |
 | `<a>` | `href` | URL |
 | | `target` | `"_blank"` opens in a new tab |
@@ -88,7 +135,7 @@
 
 ## Objects
 
-| tag | attribute | description |
+| tag | attribute | values & description |
 | - | - | - |
 | `<img/>` | `src` | source file |
 | | `alt` | text description in case of display problem |
@@ -111,7 +158,7 @@
 
 ## Forms
 
-| tag | attribute | description |
+| tag | attribute | values & description |
 | - | - | - |
 | `<form>` | | form environment |
 | | `action` | URL of the receiving server |
@@ -154,26 +201,6 @@
 | - | - |
 | `<video>` | |
 | `<audio>` | |
-
-## Layout elements
-
-These are block-level elements in the same away as `<div>` with evocative names
-
-| | |
-| - | - |
-| `<header>` | |
-| `<footer>` | |
-| `<nav>` | |
-| `<section>` | |
-| `<article>` | |
-| `<aside>` | |
-
-## Global attributes
-
-| attribute | description |
-| - | - |
-| `id` | identify uniquely an element for `css` or `js`|
-| `class` | identify multiple elementes for `css` or `js` |
 
 ## Escape characters [cf.](https://htmlandcssbook.com/extras/html-escape-codes/)
 

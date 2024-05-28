@@ -14,7 +14,7 @@
 | `t` | all tags `<t>` |
 | `.cn` | all tags with `class="cn"` |
 | `t.cn` | all tags `<t class="cn">` |
-| `#id` | all tags with `id="id" |
+| `#id` | tag with `id="id"` |
 | `t>g` | all tags `<g>` directly inside a tag `<t>` |
 | `t g` | all tags `<g>` inside a tag `<t>` |
 | `t+g` | first tag `<g>` following a tag `<t>` |
@@ -57,7 +57,7 @@ A typeface is a group of fonts
 | CSS | |
 | - | - |
 | `pt` | 1/72 of an inch |
-| `px` | a "physical" pixel is 3/4 of a point |
+| `px` | a browser pixel is 3/4 of a point, not necessarly a physical pixel |
 | `in` | one inch is 2.54 cm |
 
 | TeX | | |
@@ -70,4 +70,16 @@ A typeface is a group of fonts
 
 ## Layout
 
-> p363
+to center an element with respect to its parent: `margin: auto`
+
+| attribute | description |
+| - | - |
+| __display__ | p.317 |
+| `block` | |
+| `inline` | |
+| `none` | |
+| __position__ | [position](https://developer.mozilla.org/en-US/docs/Web/CSS/position) |
+| __float__ | p.370 |
+| | |
+| __clear__ | p.372 |
+| | |

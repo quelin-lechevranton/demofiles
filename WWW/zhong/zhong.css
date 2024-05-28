@@ -1,0 +1,112 @@
+* {
+    border: 1px solid
+}
+body {
+    background-color: #eeeeee;
+    /* font-family: "IBM Plex Mono Text"; */
+    font-family: "Arial Rounded MT";
+    margin: 0;
+}
+header {
+    z-index: 1;
+    position: sticky;
+    top: 0;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 50px auto 50px;
+}
+#header-title {
+    font-family: "Christiana BQ";
+    text-align: center;
+    background-color: #cccccc;
+    font-size: 50;
+    margin: auto;
+    padding: 5 100;
+    border-radius: 10px;
+    width: max-content;
+}
+#nav-button {
+    border: 0;
+    background-color: transparent;
+}
+#nav-button:hover {
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
+}
+/* #nav-button:active {
+} */
+
+
+nav[data-nav="false"] {
+    visibility: hidden;
+}
+nav {
+    background-color: #ffffff;
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    z-index: 1;
+}
+nav p {
+    border-radius: 10px;
+    padding: 5;
+    margin: 5;
+    font-size: 20;
+    width: max-content;
+}
+nav p:hover {
+    background-color: #cccccc;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+}
+main[data-nav="true"] {
+    filter: brightness(100%) blur(1px);
+}
+div.list {
+    margin: 0px auto 0px auto;
+    background-color: #aaaaff;
+    /* font-size: 0; */
+    /* height: 100px; */
+    /* margin: 0px auto 0px auto; */
+    /* width: calc(10*100px); */
+    width: 508px;
+    display: grid;
+    grid-template-columns: repeat(5,100px);
+    gap: 2px;
+}
+div.list div {
+    font-family: "Noto Serif SC","IBM Plex Sans TC Text";
+    font-weight: bold;
+    font-size: 50;
+    text-align: center;
+    height: 100;
+    /* border: 2px solid #000000; */
+    /* border-radius: 10px; */
+}
+div.list div:hover {
+    /* background-color: #dddddd; */
+    cursor:grab;
+}
+div.t0:hover {
+    background-color: #bbbbbb;
+}
+div.t1:hover {
+    background-color: #bbffbb;
+}
+div.t2:hover {
+    background-color: #bbbbff;
+}
+div.t3:hover {
+    /* background-color: #ffbbff; */
+    border: 2px solid #440044;
+    height: 96px;
+    width: 96px;
+}
+div.t4:hover {
+    background-color: #ffbbbb;
+}

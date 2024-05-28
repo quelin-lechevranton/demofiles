@@ -67,7 +67,7 @@ Constructor (fhicl::ParameterSet const & fcl) {
 | `anab::Calorimetry` | calorimetric measurement for each plane and each `Track` |
 | `recob::Shower` | shower reconstruction on hits from a shower-like `PFParticle` |
 
-## Truth
+## Truth & Particles
 
 ### Trajectory [`SimulationBase/MCTtrajectory.h`](https://github.com/NuSoftHEP/nusimdata/blob/develop/nusimdata/SimulationBase/MCTrajectory.h)
 
@@ -100,6 +100,16 @@ Constructor (fhicl::ParameterSet const & fcl) {
 | - | - |
 | __private__ | |
 | `fPartList` | `vector<simb::MCParticle>` |
+| __public__ | |
+| `GetParticle(i)` | `fPartList[i]` |
+| `GetNeutrino(i)` | `fMCNeutrino` |
+
+## SimEnergyDeposits [`Simulation/SimEnergyDeposit.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/Simulation/SimEnergyDeposit.h)
+
+| members | description |
+| - | - |
+| __private__ | |
+| `trackID` | same as `origTrackID`: track ID of the generated particle at the origine of the deposited energy |
 | __public__ | |
 | `GetParticle(i)` | `fPartList[i]` |
 | `GetNeutrino(i)` | `fMCNeutrino` |
@@ -156,42 +166,33 @@ Constructor (fhicl::ParameterSet const & fcl) {
 
 ## Showers [`RecoBase/Shower.h`](https://github.com/LArSoft/lardataobj/blob/develop/lardataobj/RecoBase/Shower.h)
 
-## Object Associations
+## Truth Reco Associations
 
-### Namespaces
+```C++
+art::ServiceHandle<cheat::BackTrackerService> bt_serv;
+art::ServiceHandle<cheat::ParticleInventoryService> pi_serv;
+
+
+auto const clockData = art::ServiceHandle<detinfo::DetectorClocksService>()->DataFor(evt);
+```
+
+### [`protoduneana/Utilities/`](https://github.com/DUNE/protoduneana/blob/develop/protoduneana/Utilities)
+
+## Truth Object Associations
+
+```C++
+
+```
+
+## Reco Object Associations
+
+### [`FindManyP`](https://code-doc.larsoft.org/docs/latest/html/FindManyP_8h_source.html)
 
 ```C++
 using namespace std;
 using namespace art;
 using namespace recob;
-namespace danaEvt=dune_ana::DUNEAnaEventUtils;
-namespace danaPFP=dune_ana::DUNEAnaPFParticleUtils;
-```
 
-### [`dunereco/AnaUtils`](https://github.com/DUNE/dunereco/blob/develop/dunereco/AnaUtils)
-
-```C++
-vector<Ptr<PFP>> const vp_pfp = danaEvt::GetPFParticles(evt,label_pfp);
-
-for (Ptr<PFP> const & p_pfp : vp_pfp) {
-    if (!danaPFP::IsTrack(p_pfp,evt,label_pfp,label_tack)) {
-        /* */
-    }
-    else {
-        Ptr<Track> const p_track = danaPFP::GetTrack(p_pfp,evt,label_pfp,label_track);
-        /* */
-    }
-
-    vector<Ptr<SpacePoint>> const vp_point = danaPFP::GetSpacePoints(p_pfp,evt,label_point);
-    for (Ptr<SpacePoint> const & p_point : vp_point) {
-        /* */
-    }
-}
-```
-
-### [`FindManyP`](https://code-doc.larsoft.org/docs/latest/html/FindManyP_8h_source.html)
-
-```C++
 ValidHandle<vector<PFP>> const vh_pfp = evt.getValidHandle<vector<PFP>>(tag_pfp);
 vector<Ptr<PFP>> vp_pfp;
 fill_ptr_vector(vp_pfp,vh_pfp);
@@ -212,6 +213,52 @@ for (Ptr<PFP> const & p_pfp : vp_pfp) {
 
     vector<Ptr<SpacePoint>> vp_point = fmp_point.at(p_pfp.key());
     for (Ptr<SpacePoint> const & p_point : vp_point) {
+        /* */
+    }
+}
+```
+
+### [`dunereco/AnaUtils/`](https://github.com/DUNE/dunereco/blob/develop/dunereco/AnaUtils)
+
+```C++
+namespace danaEvt=dune_ana::DUNEAnaEventUtils;
+namespace danaPFP=dune_ana::DUNEAnaPFParticleUtils;
+
+vector<Ptr<PFP>> const vp_pfp = danaEvt::GetPFParticles(evt,label_pfp);
+
+for (Ptr<PFP> const & p_pfp : vp_pfp) {
+    if (!danaPFP::IsTrack(p_pfp,evt,label_pfp,label_tack)) {
+        /* */
+    }
+    else {
+        Ptr<Track> const p_trk = danaPFP::GetTrack(p_pfp,evt,label_pfp,label_trk);
+        /* */
+    }
+
+    vector<Ptr<SpacePoint>> const vp_point = danaPFP::GetSpacePoints(p_pfp,evt,label_point);
+    for (Ptr<SpacePoint> const & p_point : vp_point) {
+        /* */
+    }
+}
+```
+
+### [`protoduneana/Utilities/`](https://github.com/DUNE/protoduneana/tree/develop/protoduneana/Utilities)
+
+```C++
+protoana::ProtoDUNEPFParticleUtils pfpUtils;
+art::ValidHandle<vector<recob::PFParticle>> const vh_pfp = evt.getValidHandle<vector<recob::PFParticle>>(tag_pfp);
+
+for (recob::PFParticle const & pfp : *vh_pfp) {
+    if (!IsPFParticleTracklike(pfp,evt,label_pfp,label_track)) {
+        /* */
+    }
+    else {
+        const recob::Track* trk = pfpUtils.GetPFParticleTrack(pfp,evt,label_pfp,label_track);
+        /* */
+    }
+
+    vector<recob::SpacePoint*> v_spt = pfpUtils.GetPFParticleSpacePoints(pfp,evt,label_pfp);
+    for (recob::SpacePoint* spt : v_spt) {
         /* */
     }
 }

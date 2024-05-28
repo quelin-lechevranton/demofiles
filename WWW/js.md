@@ -6,12 +6,6 @@
 
 Special numerical values: `Infinity` `-Infinity` `NaN`
 
-> p.112: C7 Project: A Robot
->
-> p.123: C8 Bugs and Error
->
-> p.138: C9 Regular Expressions
-
 ## Strings
 
 strings are enclosed by singlequotes, doublequotes
@@ -154,7 +148,7 @@ w.has("key");
 
 > p.105
 
-## Arrayology
+## Common methods
 
 | | |
 | - | - |
@@ -164,10 +158,10 @@ w.has("key");
 | search | `indexOf(x)` `lastIndexOf(x)` |
 | loop | `forEach(x => sideEffet(x))` `filter(x => condition(x))` `map(x => f(x))` `reduce(f,x0)` `some(condition(x))`|
 | __strings__ | |
-| access | `length` `indexOf("...")` |
+| access | `length` `indexOf("")` |
 | modification | `toUpperCase()` `toLowerCase()` |
-| new string | `slice(i, j)` `trim()` `padStart(n, "..")` `repeat(n)` |
-| string arrays | `split("...")` `join("...")` |
+| new string | `slice(i, j)` `trim()` `padStart(n, "")` `repeat(n)` |
+| string arrays | `split("")` `join("")` |
 | __general__ | |
 
 ```javascript
@@ -183,6 +177,8 @@ for (
 ) { ... ; }
 ```
 
+### console [cf.](https://www.youtube.com/watch?v=L8CDt1J3DAw)
+
 ## JSON: JavaScript Object Notation
 
 all properties must be around double quotes
@@ -193,6 +189,12 @@ not comments allowed
 let str = JSON.stringify(obj);
 let obj = JSON.parse(str);
 ```
+
+> p.112: C7 Project: A Robot
+>
+> p.123: C8 Bugs and Error
+>
+> p.138: C9 Regular Expressions
 
 ## Modularity
 
@@ -218,6 +220,87 @@ import weekday from "./file1.js";
 //in file4.js
 import * as day from "./file1.js";
 console.log(day.dayFullName(3));
+```
+
+__examples:__
+
+```js
+//CommonJS module (obselet)
+const ordinal = require("ordinal");
+const {days, months} = require("date-names");
+exports.formatDate = function(date, format) {
+    return format.replace(/YYYY|M(MMM)?|Do?|dddd/g, tag => {
+        if (tag == "YYYY") return date.getFullYear();
+        if (tag == "M") return date.getMonth();
+        if (tag == "MMMM") return months[date.getMonth()];
+        if (tag == "D") return date.getDate();
+        if (tag == "Do") return ordinal(date.getDate());
+        if (tag == "dddd") return days[date.getDay()];
+    });
+};
+//in an other file:
+const {formatDate} = require("./format-date.js");
+console.log(formatDate(new Date(2017, 9, 13),"dddd the Do"));
+```
+
+> p.168: Building and Bundling
+>
+> p.173: C11 Asyncrhonous Programming
+>
+> p.193: C12 Project: A Programming Language
+
+## The Web
+
+> p.208 is very nice
+
+## Access an HTML document
+
+Once a js file is load in an HTML document via `<script src="./code.js"><script/>` it can access various HTML elements via the namespace `document`. This contains the *Document Object Model* (DOM) of the HTML document, which is a tree structure containing each HTML element.
+
+`document.documentElement` is the root of the DOM, corresponding the `<html>` tag. `document.body` and `document.head` are its children. Each element is a node of the DOM.
+
+node, node types and elements.
+
+| | |
+| - | - |
+| __nodes__ | |
+| type | `nodeType` |
+| navigation | `children` `childNodes` `firstChild` `previousSibling` `parentNode` |
+| access | `getElementsByTagName("a")[i]` `getElementById("")` `getElementsByClassName("")` `querySelectorAll("sel")`* |
+| attribute | `href` `className` (since class is a js keyword) `getAttribute("")` `setAttribute("","")` |
+| modification | `remove` `appendChild(n)` `insertBefore(n1,n2)` |
+| creation | `document.createElement(type)` `document.createTextNode("")` |
+| layout | `offsetWidth` `clientWidth` `getBoundingClientRec` |
+| style | `style.color` `style.fontSize` |
+
+*selectors `"sel"` use the same syntax as in CSS, e.g. `document.querySelectorAll("p>.cl")`. The return is not a live `NodeList` contrary to the `getElements` methods. `querySelector("sel")` gets the first element only.
+
+__examples:__
+
+```html
+<blockquote id="quote">
+No book can ever be finished. While working on it we learn
+just enough to find it immature the moment we turn away
+from it.
+</blockquote>
+
+<script>
+    function elt(type, ...children) {
+        let node = document.createElement(type);
+        for (let child of children) {
+            if (typeof child != "string") node.appendChild(child);
+            else node.appendChild(document.createTextNode(child));
+        }
+        return node;
+    }
+    document.getElementById("quote").appendChild(
+        elt("footer", "—",
+        elt("strong", "Karl Popper"),
+        ", preface to the second edition of ",
+        elt("em", "The Open Society and Its Enemies"),
+        ", 1950")
+    );
+</script>
 ```
 
 ## Examples
