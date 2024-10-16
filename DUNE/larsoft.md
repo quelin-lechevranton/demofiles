@@ -1,5 +1,52 @@
 # LArSoft: *liquid argon software*
 
+## Installation [here](https://gitlab.in2p3.fr/dune-france/dune-orsay/-/wikis/LArSoft), [versions](https://larsoft.github.io/LArSoftWiki/releases/LArSoft_release_list.html)
+
+first load in the container 
+
+```bash
+alias app='/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash -B /cvmfs,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid /cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest'
+```
+
+create `install_larsoft.sh` in `path/to/user/sw/dune_workdir` with the following
+
+```bash
+#!/bin/bash
+
+VERSION=v09_91_04d00
+QUAL=e26
+
+source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
+mrb newDev -f -v ${VERSION} -q prof:${QUAL}
+source localProducts_larsoft_${VERSION}_prof_${QUAL}/setup
+
+cd $MRB_SOURCE
+mrb g -t ${VERSION} dunesw
+
+cd $MRB_SOURCE
+mrb g -t ${VERSION} protoduneana
+
+cd $MRB_SOURCE
+mrb g -t ${VERSION} dunereco
+```
+
+you can now source larsoft with 
+
+```bash
+source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
+source /path/to/localProducts_larsoft_v09_91_04d00_prof_e26/setup
+
+mrbsetenv && mrbslp
+```
+
+and compile with
+
+```bash
+cd $MRB_BUILDDIR
+mrbsetenv && mrb i -j8 && mrbslp
+```
+
+
 ## Generation
 
 | PDVD | |
